@@ -1,0 +1,20 @@
+{
+  "name": "Ikigai Go",
+  "short_name": "Ikigai Go",
+  "description": "Descubre tu camino: orientación vocacional, habilidades y experiencias prácticas.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#f5f7fc",
+  "theme_color": "#6545e8",
+  "lang": "es",
+  "icons": [
+    {
+      "src": "./assets/logo.png",
+      "sizes": "1024x1024",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}

@@ -1,0 +1,1550 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,viewport-fit=cover,user-scalable=no">
+<meta name="theme-color" content="#6545e8">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Ikigai Go">
+<title>Ikigai Go — Mobile V9</title>
+<style>
+:root{--p:#6545e8;--p2:#8d72ff;--ink:#172033;--muted:#68728a;--bg:#f5f7fc;--card:#fff;--line:#e7e9f1;--green:#18a874;--gold:#e3a21a;--shadow:0 12px 34px rgba(37,40,72,.09)}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:Inter,system-ui,-apple-system,"Segoe UI",sans-serif}
+button,input{font:inherit}button{cursor:pointer;border:0}.app{min-height:100vh}.shell{max-width:1180px;margin:auto;min-height:100vh}
+header{height:78px;display:flex;align-items:center;justify-content:space-between;padding:12px 28px}
+.brand{display:flex;align-items:center;gap:11px;font-weight:850;font-size:21px}.logo{width:46px;height:46px;border-radius:15px;background:linear-gradient(135deg,#5b3be0,#9a86ff);color:#fff;display:grid;place-items:center;font-weight:900;box-shadow:0 8px 20px #6545e833}.logo span{font-size:18px;letter-spacing:-2px}.avatar{width:42px;height:42px;border-radius:50%;background:#eeeaff;color:var(--p);display:grid;place-items:center;font-weight:850}
+main{padding:16px 28px 105px}.view{display:none}.view.active{display:block}
+.hero{color:white;background:linear-gradient(135deg,#563bd2,#8a6cf2);border-radius:28px;padding:34px;box-shadow:var(--shadow);overflow:hidden;position:relative}.hero:after{content:"";position:absolute;width:250px;height:250px;border-radius:50%;right:-70px;top:-90px;background:#fff1}.hero h1{font-size:40px;line-height:1.06;max-width:700px;margin:0 0 13px}.hero p{max-width:720px;line-height:1.55;opacity:.94;margin:0 0 24px}
+.btn{padding:12px 18px;border-radius:14px;font-weight:800;transition:.18s}.btn:hover{transform:translateY(-1px)}.primary{background:var(--p);color:#fff}.light{background:#fff;color:#5439cf}.soft{background:#efedff;color:var(--p)}.outline{background:#fff;border:1px solid var(--line);color:var(--ink)}
+.section{display:flex;justify-content:space-between;align-items:end;margin:29px 0 14px}.section h2{margin:0;font-size:22px}.section p{margin:5px 0 0;color:var(--muted);font-size:14px}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:15px}.grid2{display:grid;grid-template-columns:repeat(2,1fr);gap:15px}.card{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:20px;box-shadow:0 7px 25px #25284808}
+.pillar{border-left:5px solid var(--p)}.pillar:nth-child(2){border-left-color:#20b995}.pillar:nth-child(3){border-left-color:#efa82c}.pillar .num{font-size:28px;font-weight:900}.pillar h3{margin:6px 0 8px}.pillar p,.card p{color:var(--muted);line-height:1.5;margin:0;font-size:14px}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:15px}.stat{padding:16px;background:#fff;border:1px solid var(--line);border-radius:17px}.stat b{display:block;font-size:20px}.stat span{font-size:12px;color:var(--muted)}
+.progress{height:9px;background:#e9eaf1;border-radius:99px;overflow:hidden}.bar{height:100%;background:linear-gradient(90deg,var(--p),#9b87ff);border-radius:99px;transition:.25s}
+.quiz{max-width:820px;margin:auto}.quizhead{margin-bottom:18px}.quizhead h1{margin:0 0 6px}.quizhead p{margin:0;color:var(--muted)}.step{display:flex;justify-content:space-between;font-size:13px;color:var(--muted);margin:10px 0 7px}
+.qcard{background:#fff;border:1px solid var(--line);border-radius:25px;padding:27px;box-shadow:var(--shadow)}.qcard h2{font-size:27px;margin:0 0 7px}.qcard .desc{color:var(--muted);margin:0 0 21px;font-size:14px}
+.options{display:grid;gap:10px}.opt{width:100%;display:flex;align-items:center;gap:12px;text-align:left;padding:14px;border:1px solid var(--line);border-radius:14px;background:#fff}.opt:hover{background:#faf9ff;border-color:#c9c2ff}.opt.sel{background:#f0edff;border-color:var(--p)}.radio{width:20px;height:20px;border:2px solid #cbd0dc;border-radius:50%;display:grid;place-items:center;flex:none}.sel .radio{border-color:var(--p)}.sel .radio:after{content:"";width:9px;height:9px;border-radius:50%;background:var(--p)}.actions{display:flex;justify-content:space-between;margin-top:22px;gap:10px}
+.notice{padding:12px 14px;border-radius:13px;background:#f5f3ff;color:#5a43ce;font-size:13px;margin-bottom:15px}
+.result{background:#fff;border:1px solid var(--line);border-radius:25px;padding:28px;box-shadow:var(--shadow)}.resultTop{display:flex;gap:20px;align-items:center}.resultIcon{width:90px;height:90px;border-radius:25px;background:#efecff;display:grid;place-items:center;font-size:38px}.result h1{margin:0 0 7px}.result p{color:var(--muted);line-height:1.55}.chips{display:flex;flex-wrap:wrap;gap:8px}.chip{padding:8px 11px;border-radius:10px;background:#f0edff;color:#563ed0;font-size:12px;font-weight:750}
+.plan{position:relative}.plan.pro{border:2px solid #8b76f4}.plan.premium{border:2px solid #efb73e}.badge{position:absolute;right:16px;top:16px;padding:6px 9px;border-radius:8px;background:#efedff;color:var(--p);font-size:11px;font-weight:900}.premium .badge{background:#fff3cf;color:#9a6810}.price{font-size:31px;font-weight:900;margin:13px 0}.price small{font-size:13px;color:var(--muted);font-weight:600}.benefits{list-style:none;padding:0;margin:16px 0}.benefits li{padding:7px 0;color:#4c566c;font-size:14px}.benefits li:before{content:"✓";color:var(--green);font-weight:900;margin-right:8px}
+.lock{opacity:.62}.locked{position:relative}.locked:after{content:"PRO/PREMIUM";position:absolute;right:13px;top:13px;background:#eeeaff;color:var(--p);font-size:10px;font-weight:900;padding:5px 7px;border-radius:7px}
+.resource{display:flex;gap:13px;align-items:flex-start}.ico{width:47px;height:47px;border-radius:14px;background:#f0edff;display:grid;place-items:center;font-size:23px;flex:none}.resource h3{margin:0 0 5px}.resource p{margin:0}
+.mentor{display:flex;align-items:center;gap:12px;padding:13px 0;border-bottom:1px solid var(--line)}.mentor:last-child{border-bottom:0}.face{width:43px;height:43px;border-radius:50%;background:#eeeaff;display:grid;place-items:center;font-size:21px}.mentor small{display:block;color:var(--muted);margin-top:3px}
+.goal{display:flex;gap:12px;padding:13px 0;border-bottom:1px solid var(--line)}.goal:last-child{border:0}.goal input{width:20px;height:20px;accent-color:var(--p)}
+.toast{position:fixed;right:18px;bottom:92px;background:#172033;color:white;padding:13px 16px;border-radius:13px;opacity:0;transform:translateY(10px);transition:.25s;z-index:50}.toast.show{opacity:1;transform:none}
+.modal{position:fixed;inset:0;background:#11182a99;display:none;align-items:center;justify-content:center;padding:20px;z-index:40}.modal.show{display:flex}.modalBox{background:#fff;border-radius:24px;max-width:520px;width:100%;padding:25px;box-shadow:0 25px 70px #11182a44}.modalBox h2{margin-top:0}
+nav{position:fixed;z-index:30;bottom:15px;left:50%;transform:translateX(-50%);width:min(760px,calc(100% - 26px));padding:8px;background:#fffffff2;backdrop-filter:blur(15px);border:1px solid var(--line);border-radius:22px;box-shadow:0 14px 38px #22264022;display:grid;grid-template-columns:repeat(5,1fr);gap:4px}nav button{background:transparent;color:#788197;border-radius:15px;padding:8px 3px;font-size:11px;font-weight:800}nav button.active{background:#eeeaff;color:var(--p)}nav .ni{display:block;font-size:23px;line-height:24px;margin-bottom:2px}
+.search{width:100%;padding:13px 15px;border:1px solid var(--line);border-radius:13px;outline:none}.search:focus{border-color:var(--p)}
+@media(max-width:800px){header{padding:12px 16px}main{padding:12px 16px 105px}.grid,.grid2{grid-template-columns:1fr}.stats{grid-template-columns:repeat(2,1fr)}.hero{padding:25px;border-radius:23px}.hero h1{font-size:31px}.qcard{padding:20px}.qcard h2{font-size:23px}.resultTop{align-items:flex-start}.resultIcon{width:70px;height:70px;font-size:29px}}
+.task{display:flex;gap:13px;align-items:flex-start;padding:14px 0;border-bottom:1px solid var(--line)}.task:last-child{border-bottom:0}.face{width:43px;height:43px;border-radius:50%;background:#eeeaff;display:grid;place-items:center;font-size:21px;flex:none}.green{background:#e9faf4;color:#13845e}.action-card{cursor:pointer;transition:.18s}.action-card:hover{transform:translateY(-2px);box-shadow:var(--shadow);border-color:#c9c2ff}
+.flowHero{background:#fff;border:1px solid var(--line);border-radius:24px;padding:25px;box-shadow:var(--shadow);margin-bottom:16px}
+.flowHero h1{margin:0 0 7px;font-size:30px}.flowHero p{color:var(--muted);line-height:1.55;margin:0}
+.back{display:inline-flex;align-items:center;gap:6px;background:#eeeaff;color:var(--p);padding:9px 13px;border-radius:11px;font-weight:800;margin-bottom:16px}
+.detailGrid{display:grid;grid-template-columns:1.1fr .9fr;gap:16px}.miniList{display:grid;gap:9px;margin-top:13px}.miniItem{display:flex;gap:10px;align-items:flex-start;padding:12px;background:#f8f8fc;border-radius:13px}.miniItem b{display:block;margin-bottom:3px}.miniItem span{font-size:13px;color:var(--muted);line-height:1.4}
+.choiceGrid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}.choice{border:1px solid var(--line);background:#fff;border-radius:17px;padding:16px;text-align:left}.choice:hover{border-color:#b9adff}.choice h3{margin:8px 0 5px}.choice p{margin:0;color:var(--muted);font-size:13px;line-height:1.45}
+.formRow{display:grid;grid-template-columns:1fr 1fr;gap:12px}.field{display:grid;gap:6px;margin:10px 0}.field label{font-size:13px;font-weight:800}.field input,.field textarea,.field select{padding:12px;border:1px solid var(--line);border-radius:12px;outline:none;background:#fff}.field textarea{min-height:120px;resize:vertical}.field input:focus,.field textarea:focus,.field select:focus{border-color:var(--p)}
+.stepper{display:flex;gap:7px;margin:16px 0}.stepDot{height:8px;flex:1;background:#e5e6ee;border-radius:99px}.stepDot.on{background:var(--p)}
+.status{padding:10px 12px;border-radius:11px;background:#eafaf4;color:#137b59;font-size:13px;font-weight:700}.status.pending{background:#fff6dd;color:#8b6810}
+@media(max-width:800px){.detailGrid,.choiceGrid,.formRow{grid-template-columns:1fr}}
+
+
+/* ===== V5: onboarding, autenticación y administración ===== */
+.authGate{position:fixed;inset:0;z-index:100;background:linear-gradient(135deg,#f4f2ff,#f7f9ff 55%,#eefbf7);display:flex;align-items:center;justify-content:center;padding:20px;overflow:auto}
+.authGate.hidden{display:none}
+.authShell{width:min(980px,100%);display:grid;grid-template-columns:.9fr 1.1fr;background:#fff;border:1px solid var(--line);border-radius:30px;overflow:hidden;box-shadow:0 25px 80px #2528481c}
+.authAside{padding:38px;background:linear-gradient(145deg,#563bd2,#8a6cf2);color:#fff;min-height:560px;display:flex;flex-direction:column;justify-content:space-between}
+.authAside h1{font-size:38px;line-height:1.05;margin:20px 0 12px}.authAside p{line-height:1.6;opacity:.94}
+.authLogo{width:62px;height:62px;border-radius:19px;background:#ffffff24;border:1px solid #ffffff33;display:grid;place-items:center;font-weight:950;font-size:23px}
+.authContent{padding:32px;min-height:560px}.gateScreen{display:none}.gateScreen.active{display:block}
+.gateTitle{margin:0 0 7px;font-size:28px}.gateSub{margin:0 0 20px;color:var(--muted);line-height:1.5}
+.termsBox{height:290px;overflow:auto;padding:18px;background:#f8f8fc;border:1px solid var(--line);border-radius:17px;line-height:1.6;color:#4d566a;font-size:14px}
+.termsBox h3{color:var(--ink);margin:0 0 7px}.termsBox p{margin:0 0 13px}
+.tutorialSlide{display:none}.tutorialSlide.active{display:block}.tutorialIcon{width:78px;height:78px;border-radius:23px;background:#efecff;display:grid;place-items:center;font-size:37px;margin:20px 0}
+.tutorialDots{display:flex;gap:7px;margin:22px 0}.tutorialDot{height:7px;flex:1;background:#e5e6ee;border-radius:99px}.tutorialDot.on{background:var(--p)}
+.gateActions{display:flex;justify-content:space-between;gap:10px;margin-top:20px}
+.authTabs{display:grid;grid-template-columns:1fr 1fr 1fr;gap:7px;margin:18px 0}.authTab{padding:11px;border-radius:12px;background:#f4f4f8;color:var(--muted);font-weight:800}.authTab.active{background:#eeeaff;color:var(--p)}
+.authForm{display:none}.authForm.active{display:block}.authError{display:none;padding:11px 13px;border-radius:12px;background:#fff0f0;color:#b42318;font-size:13px;margin-bottom:12px}.authError.show{display:block}
+.authNotice{padding:11px 13px;border-radius:12px;background:#f5f3ff;color:#5a43ce;font-size:13px;margin-bottom:14px}
+.adminPanel{margin-top:18px}.adminTable{width:100%;border-collapse:collapse;font-size:13px}.adminTable th,.adminTable td{text-align:left;padding:10px;border-bottom:1px solid var(--line)}.adminTable th{color:var(--muted)}
+.adminBadge{display:inline-flex;padding:5px 8px;border-radius:8px;background:#eeeaff;color:var(--p);font-size:11px;font-weight:900}
+.userHeader{display:flex;align-items:center;gap:10px}.userHeader .userMeta{display:flex;flex-direction:column;align-items:flex-end}.userHeader small{color:var(--muted);font-size:11px}.logoutBtn{margin-left:8px}
+@media(max-width:800px){.authShell{grid-template-columns:1fr}.authAside{display:none}.authContent{padding:24px;min-height:auto}.termsBox{height:300px}.authTabs{grid-template-columns:1fr}.userHeader .userMeta{display:none}}
+
+
+/* ===== V6: explorador ampliado + centro de herramientas ===== */
+.exploreHero{background:linear-gradient(135deg,#ffffff,#f4f1ff);border:1px solid var(--line);border-radius:24px;padding:24px;box-shadow:var(--shadow);margin-bottom:16px}
+.exploreHero h1{margin:0 0 6px;font-size:30px}.exploreHero p{margin:0;color:var(--muted);line-height:1.5}
+.exploreTools{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:17px}
+.quickAction{border:1px solid var(--line);background:#fff;border-radius:16px;padding:14px;text-align:left;font-weight:800;color:var(--ink)}
+.quickAction span{display:block;font-size:23px;margin-bottom:6px}.quickAction small{display:block;color:var(--muted);font-weight:600;margin-top:3px}
+.quickAction:hover{border-color:#b9adff;transform:translateY(-1px)}
+.filterBar{display:flex;flex-wrap:wrap;gap:8px;margin:15px 0}.filterChip{border:1px solid var(--line);background:#fff;color:var(--muted);padding:9px 12px;border-radius:999px;font-size:12px;font-weight:850}.filterChip.active{background:#eeeaff;color:var(--p);border-color:#cfc6ff}
+.exploreMeta{display:flex;justify-content:space-between;align-items:center;margin:12px 0;color:var(--muted);font-size:13px}
+.areaCard{position:relative;display:flex;flex-direction:column;min-height:230px}.areaTop{display:flex;gap:12px;align-items:flex-start}.areaIcon{width:55px;height:55px;border-radius:17px;background:#f0edff;display:grid;place-items:center;font-size:27px;flex:none}.areaCard h3{margin:2px 0 5px}.areaCard p{margin:0}.areaTags{display:flex;flex-wrap:wrap;gap:6px;margin:13px 0}.areaTag{padding:5px 8px;border-radius:8px;background:#f5f6fa;color:#647087;font-size:10px;font-weight:800}.areaActions{display:flex;gap:7px;margin-top:auto}.areaActions .btn{flex:1;padding:10px 9px;font-size:12px}
+.favBtn{width:39px;height:39px;border-radius:12px;background:#f7f7fb;color:#7b8497;font-size:19px}.favBtn.on{background:#fff1d6;color:#d18b00}
+.compareBar{position:sticky;bottom:94px;z-index:10;background:#fff;border:1px solid #dcd7ff;border-radius:17px;padding:11px 13px;box-shadow:var(--shadow);display:none;align-items:center;justify-content:space-between;gap:10px;margin-top:14px}.compareBar.show{display:flex}.compareCount{font-weight:850}.compareList{display:flex;gap:7px;flex-wrap:wrap}.comparePill{background:#eeeaff;color:var(--p);padding:6px 9px;border-radius:9px;font-size:11px;font-weight:800}
+.compareGrid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}.compareMetric{display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--line);font-size:13px}.compareMetric:last-child{border:0}
+.toolGrid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}.toolCard{background:#fff;border:1px solid var(--line);border-radius:20px;padding:19px;box-shadow:0 7px 25px #25284808}.toolCard .toolIcon{width:50px;height:50px;border-radius:15px;background:#efecff;display:grid;place-items:center;font-size:24px;margin-bottom:12px}.toolCard h3{margin:0 0 6px}.toolCard p{margin:0;color:var(--muted);font-size:13px;line-height:1.5}.toolCard .btn{margin-top:14px}
+.dashboardGrid{display:grid;grid-template-columns:1.25fr .75fr;gap:15px}.timeline{display:grid;gap:10px}.timelineItem{display:flex;gap:11px;padding:11px 0;border-bottom:1px solid var(--line)}.timelineItem:last-child{border:0}.timelineDot{width:32px;height:32px;border-radius:10px;background:#eeeaff;color:var(--p);display:grid;place-items:center;flex:none}
+.diaryBox{background:#fff;border:1px solid var(--line);border-radius:20px;padding:20px}.diaryEntries{display:grid;gap:9px;margin-top:13px}.diaryEntry{padding:12px;border-radius:13px;background:#f8f8fc}.diaryEntry small{color:var(--muted);display:block;margin-top:4px}
+.habitGrid{display:grid;grid-template-columns:repeat(7,1fr);gap:6px;margin-top:15px}.habitDay{height:32px;border-radius:8px;background:#eceef4}.habitDay.done{background:#b9efd9}.habitLabels{display:grid;grid-template-columns:repeat(7,1fr);gap:6px;color:var(--muted);font-size:10px;text-align:center}
+.pathList{display:grid;gap:9px}.pathItem{display:flex;gap:10px;align-items:flex-start;padding:12px;background:#f8f8fc;border-radius:13px}.pathNum{width:28px;height:28px;border-radius:9px;background:#eeeaff;color:var(--p);display:grid;place-items:center;font-weight:900;flex:none}
+@media(max-width:950px){.exploreTools,.toolGrid{grid-template-columns:repeat(2,1fr)}.dashboardGrid{grid-template-columns:1fr}}
+@media(max-width:800px){.exploreTools,.toolGrid,.compareGrid{grid-template-columns:1fr}.exploreMeta{align-items:flex-start;gap:8px;flex-direction:column}.compareBar{bottom:92px}.habitGrid,.habitLabels{gap:4px}}
+.app.admin-mode nav{grid-template-columns:repeat(6,1fr);width:min(900px,calc(100% - 26px))}
+nav:not(.dummy){transition:.2s}
+
+
+.modalClose{position:absolute;right:14px;top:10px;border:0;background:#f2f3f8;border-radius:10px;width:34px;height:34px;font-size:23px;color:#687188;cursor:pointer}
+.modalBox{position:relative}
+.experienceBox{width:min(680px,calc(100vw - 28px));max-height:88vh;overflow:auto}
+.experienceHeader{display:flex;justify-content:space-between;gap:15px;align-items:flex-start}
+.timerBadge{font-variant-numeric:tabular-nums;background:#eeeaff;color:var(--p);padding:10px 12px;border-radius:12px;font-weight:900;white-space:nowrap}
+.experienceProgress{display:flex;gap:6px;margin:18px 0}
+.experienceProgress span{height:6px;flex:1;border-radius:99px;background:#e7e9f0}.experienceProgress span.on{background:var(--p)}
+.experienceTask{background:#f7f7fb;border:1px solid var(--line);border-radius:16px;padding:17px;margin:14px 0}
+.experienceTask h3{margin:0 0 7px}.experienceTask p{margin:0;color:var(--muted);line-height:1.55}
+.experienceChoices{display:grid;gap:8px;margin-top:12px}.experienceChoice{border:1px solid var(--line);background:#fff;border-radius:13px;padding:12px;text-align:left;cursor:pointer;font-weight:750}.experienceChoice:hover{border-color:#b8adff}.experienceChoice.selected{background:#eeeaff;border-color:#9a8bff;color:var(--p)}
+.experienceResult{padding:16px;border-radius:15px;background:#effaf5;border:1px solid #c9efde}.experienceResult h3{margin:0 0 6px}
+
+
+.experienceTutorial{background:#f7f7fb;border:1px solid var(--line);border-radius:16px;padding:15px;margin:14px 0}
+.experienceTutorial h4{margin:0 0 6px;font-size:15px}.experienceTutorial p{margin:0 0 10px;color:var(--muted);font-size:13px;line-height:1.5}
+.tutorialLink{display:inline-flex;align-items:center;gap:7px;background:#ffedf0;color:#c6283d;padding:10px 12px;border-radius:11px;font-weight:850;text-decoration:none;font-size:12px}
+.tutorialLink:hover{background:#ffe1e6}
+.timerWarning{color:#c6283d;background:#fff0f1;border:1px solid #ffd0d5;padding:7px 10px;border-radius:9px;font-size:11px;font-weight:900;margin-top:7px;text-align:center}
+.settingsGrid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+.settingsCard{background:#fff;border:1px solid var(--line);border-radius:20px;padding:19px}
+.settingsCard h3{margin:0 0 5px}.settingsCard p{margin:0;color:var(--muted);font-size:13px;line-height:1.5}
+.settingRow{display:flex;justify-content:space-between;gap:15px;align-items:center;padding:13px 0;border-bottom:1px solid var(--line)}
+.settingRow:last-child{border-bottom:0}.settingText{flex:1}.settingText b{display:block;margin-bottom:3px}.settingText span{display:block;color:var(--muted);font-size:12px;line-height:1.4}
+.toggle{width:48px;height:27px;border-radius:99px;background:#dfe2ea;position:relative;flex:none;transition:.2s}.toggle:after{content:"";position:absolute;width:21px;height:21px;left:3px;top:3px;border-radius:50%;background:#fff;box-shadow:0 2px 5px #0002;transition:.2s}.toggle.on{background:var(--p)}.toggle.on:after{transform:translateX(21px)}
+.dangerZone{border-color:#ffd1d1}.dangerZone h3{color:#b42318}.danger{background:#fff0f0;color:#b42318;border:1px solid #ffd0d0}
+.compact-mode .card{padding:15px}.compact-mode .section{margin:20px 0 10px}
+.large-text{font-size:108%}.large-text .btn,.large-text input,.large-text textarea,.large-text select{font-size:1em}
+@media(max-width:800px){.settingsGrid{grid-template-columns:1fr}}
+
+
+body.dark-mode{--bg:#111522;--card:#1a2030;--ink:#f2f4fa;--muted:#aeb6ca;--line:#2d3446;--shadow:0 12px 34px rgba(0,0,0,.25)}
+body.dark-mode .search,body.dark-mode .field input,body.dark-mode .field textarea,body.dark-mode .field select,body.dark-mode .outline,body.dark-mode .choice,body.dark-mode .quickAction,body.dark-mode .settingsCard,body.dark-mode .card,body.dark-mode .qcard{background:#1a2030;color:var(--ink)}
+body.dark-mode .experienceTask,body.dark-mode .experienceTutorial,body.dark-mode .settingRow,.dark-mode .habitDay{background:#151a27}
+body.dark-mode nav{background:#171c2bf2}
+body.reduced-motion *,body.reduced-motion *:before,body.reduced-motion *:after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}
+
+
+/* =========================================================
+   IKIGAI GO MOBILE V9 — mobile-first app shell
+   ========================================================= */
+:root{
+  --mobile-header:64px;
+  --mobile-nav:78px;
+  --safe-top:env(safe-area-inset-top,0px);
+  --safe-bottom:env(safe-area-inset-bottom,0px);
+}
+html{
+  min-height:100%;
+  background:#eef0f7;
+  -webkit-text-size-adjust:100%;
+  text-size-adjust:100%;
+}
+body{
+  min-height:100%;
+  overscroll-behavior-y:none;
+  -webkit-tap-highlight-color:transparent;
+  touch-action:manipulation;
+}
+button,a,input,select,textarea{touch-action:manipulation}
+button{
+  min-height:44px;
+  -webkit-user-select:none;
+  user-select:none;
+}
+.app{min-height:100dvh}
+.shell{
+  width:100%;
+  max-width:520px;
+  min-height:100dvh;
+  margin:0 auto;
+  background:var(--bg);
+  position:relative;
+  overflow-x:hidden;
+}
+header{
+  position:sticky;
+  top:0;
+  z-index:25;
+  height:calc(var(--mobile-header) + var(--safe-top));
+  padding:var(--safe-top) 15px 0;
+  background:color-mix(in srgb,var(--bg) 88%,transparent);
+  backdrop-filter:blur(18px);
+  -webkit-backdrop-filter:blur(18px);
+  border-bottom:1px solid color-mix(in srgb,var(--line) 75%,transparent);
+}
+.brand{gap:9px;font-size:17px;min-width:0}
+.brand > div:last-child{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.brand > div:last-child div{display:none!important}
+.logo{
+  width:39px;height:39px;border-radius:12px;flex:none;
+  box-shadow:0 6px 16px #6545e82b;
+}
+.logo span{font-size:15px}
+.avatar{width:38px;height:38px;flex:none}
+
+main{
+  padding:14px 14px calc(var(--mobile-nav) + var(--safe-bottom) + 20px);
+}
+.view.active{animation:mobileIn .18s ease}
+@keyframes mobileIn{
+  from{opacity:.7;transform:translateY(4px)}
+  to{opacity:1;transform:none}
+}
+
+.hero{
+  border-radius:23px;
+  padding:23px 20px;
+  min-height:250px;
+  display:flex;
+  flex-direction:column;
+  justify-content:flex-end;
+}
+.hero h1{font-size:29px;line-height:1.08;margin-bottom:11px}
+.hero p{font-size:14px;line-height:1.5;margin-bottom:18px}
+.hero .btn{width:100%;font-size:15px}
+
+.section{
+  margin:24px 2px 12px;
+  align-items:center;
+}
+.section h2{font-size:19px}
+.section p{font-size:12px}
+
+.grid,.grid2,.stats,.detailGrid,.choiceGrid,.formRow{
+  grid-template-columns:1fr!important;
+}
+.grid{gap:10px}
+.grid2{gap:10px}
+.card{
+  border-radius:18px;
+  padding:16px;
+  box-shadow:0 5px 18px #2528480a;
+}
+.action-card{min-height:0}
+.pillar{border-left-width:4px}
+.pillar .num{font-size:23px}
+.pillar h3{font-size:16px}
+.pillar p,.card p{font-size:13px}
+
+.stats{
+  grid-template-columns:repeat(2,1fr)!important;
+  gap:9px;
+}
+.stat{
+  padding:13px;
+  border-radius:15px;
+}
+.stat b{font-size:18px}
+.stat span{font-size:11px}
+
+.quiz{max-width:none}
+.quizhead h1{font-size:25px;line-height:1.12}
+.quizhead p{font-size:13px}
+.notice{font-size:12px;padding:11px 12px}
+.qcard{
+  border-radius:20px;
+  padding:17px;
+}
+.qcard h2{font-size:21px;line-height:1.2}
+.qcard .desc{font-size:13px}
+.options{gap:8px}
+.opt{
+  padding:13px 12px;
+  border-radius:14px;
+  min-height:52px;
+}
+.opt:active,.choice:active,.action-card:active,.btn:active{transform:scale(.985)}
+.actions{
+  position:sticky;
+  bottom:calc(var(--mobile-nav) + var(--safe-bottom) + 7px);
+  z-index:10;
+  margin-top:16px;
+  padding:7px;
+  background:color-mix(in srgb,var(--bg) 90%,transparent);
+  backdrop-filter:blur(12px);
+  border-radius:16px;
+}
+.actions .btn{flex:1}
+
+.result{border-radius:20px;padding:18px}
+.resultTop{gap:13px}
+.resultIcon{width:62px;height:62px;border-radius:18px;font-size:26px}
+.result h1{font-size:21px}
+.result p{font-size:13px}
+
+.flowHero{
+  border-radius:19px;
+  padding:18px;
+  margin-bottom:11px;
+}
+.flowHero h1{font-size:24px}
+.flowHero p{font-size:13px}
+.back{margin-bottom:11px}
+
+.choice{
+  border-radius:16px;
+  padding:14px;
+  min-height:76px;
+}
+.choice h3{font-size:15px}
+
+.formRow{gap:0}
+.field{margin:8px 0}
+.field input,.field textarea,.field select{
+  min-height:48px;
+  font-size:16px; /* prevents iOS zoom */
+  border-radius:13px;
+}
+.field textarea{min-height:115px}
+
+.resource{gap:10px;padding:14px}
+.ico{width:43px;height:43px;border-radius:12px;font-size:20px}
+
+.task,.goal,.mentor{padding:12px 0}
+
+.search{
+  min-height:48px;
+  font-size:16px;
+  border-radius:14px;
+}
+
+.toast{
+  left:14px;
+  right:14px;
+  bottom:calc(var(--mobile-nav) + var(--safe-bottom) + 12px);
+  text-align:center;
+  border-radius:14px;
+}
+
+.modal{
+  align-items:flex-end;
+  padding:0;
+  background:#11182ab8;
+}
+.modalBox{
+  width:100%;
+  max-width:520px;
+  max-height:92dvh;
+  overflow:auto;
+  border-radius:24px 24px 0 0;
+  padding:20px 16px calc(20px + var(--safe-bottom));
+  animation:sheetUp .2s ease;
+}
+@keyframes sheetUp{
+  from{transform:translateY(100%)}
+  to{transform:translateY(0)}
+}
+.modalBox h2{font-size:21px}
+
+nav{
+  left:0;
+  right:0;
+  bottom:0;
+  transform:none;
+  width:100%;
+  max-width:520px;
+  margin:0 auto;
+  height:calc(var(--mobile-nav) + var(--safe-bottom));
+  padding:7px 8px calc(7px + var(--safe-bottom));
+  border-radius:20px 20px 0 0;
+  grid-template-columns:repeat(5,1fr);
+  gap:2px;
+  background:color-mix(in srgb,var(--card) 92%,transparent);
+  box-shadow:0 -7px 25px #22264014;
+}
+nav button{
+  min-height:56px;
+  padding:5px 1px;
+  font-size:10px;
+  border-radius:13px;
+}
+nav .ni{font-size:21px;line-height:22px;margin-bottom:1px}
+
+.stepper{gap:5px;margin:13px 0}
+.stepDot{height:7px}
+
+.status{font-size:12px}
+.chips{gap:6px}
+.chip{font-size:11px;padding:7px 9px}
+
+#experienceModal .modalBox{
+  max-height:96dvh;
+}
+#experienceTimer{
+  font-variant-numeric:tabular-nums;
+  letter-spacing:.3px;
+}
+#experienceModal .btn{
+  width:100%;
+}
+
+[style*="position:fixed"][style*="right"]{
+  max-width:calc(100vw - 28px)!important;
+}
+
+@media (min-width:521px){
+  body{padding:18px 0}
+  .shell{
+    min-height:calc(100dvh - 36px);
+    border-radius:28px;
+    box-shadow:0 18px 60px #25284820;
+    overflow:hidden;
+  }
+  header{border-radius:28px 28px 0 0}
+  nav{border-radius:20px}
+}
+
+@media (max-width:360px){
+  main{padding-left:11px;padding-right:11px}
+  .hero h1{font-size:26px}
+  nav button{font-size:9px}
+  nav .ni{font-size:19px}
+}
+
+@media (orientation:landscape) and (max-height:520px){
+  header{height:56px;padding-top:0}
+  main{padding-bottom:80px}
+  nav{height:70px;padding-bottom:5px}
+  nav button{min-height:48px}
+  .hero{min-height:210px}
+}
+
+/* Mobile dark-mode refinements */
+body.dark{
+  background:#0b0e17;
+}
+body.dark .shell{background:#0f1320}
+body.dark header,
+body.dark nav{
+  background:color-mix(in srgb,#121827 90%,transparent);
+}
+body.dark .actions{
+  background:color-mix(in srgb,#0f1320 90%,transparent);
+}
+
+/* Make long action lists comfortable for thumbs */
+.action-list,.settings-list,.tool-grid{
+  display:grid;
+  gap:9px;
+}
+.action-list .btn,.settings-list .btn,.tool-grid .btn{
+  width:100%;
+  text-align:left;
+}
+
+/* Prevent accidental horizontal overflow from legacy desktop blocks */
+.view,.card,.result,.flowHero,.modalBox{max-width:100%}
+img,video,iframe{max-width:100%}
+pre,code{max-width:100%;overflow:auto}
+
+</style>
+<link rel="manifest" href="./manifest.webmanifest">
+<link rel="icon" type="image/png" href="./assets/logo.png">
+<link rel="apple-touch-icon" href="./assets/logo.png">
+</head>
+<body>
+
+<div id="authGate" class="authGate">
+  <div class="authShell">
+    <aside class="authAside">
+      <div><div class="authLogo">iK</div><h1>Ikigai Go</h1><p>Descubre intereses, prueba caminos vocacionales y convierte tus avances en proyectos.</p></div>
+      <div><small>Tu progreso se guarda por cuenta en este navegador.</small></div>
+    </aside>
+    <div class="authContent">
+      <section id="gateTerms" class="gateScreen active">
+        <h2 class="gateTitle">Antes de comenzar</h2>
+        <p class="gateSub">Lee y acepta los términos para continuar al tutorial.</p>
+        <div class="termsBox">
+          <h3>1. Uso de la aplicación</h3>
+          <p>Ikigai Go es una herramienta educativa y orientativa para explorar intereses, habilidades y opciones vocacionales. La información no constituye diagnóstico psicológico, médico, jurídico ni una garantía de elección profesional.</p>
+          <h3>2. Cuestionario</h3>
+          <p>Las respuestas y resultados son orientativos. No deben utilizarse como único criterio para tomar decisiones educativas o laborales importantes.</p>
+          <h3>3. Cuenta y datos</h3>
+          <p>En esta versión local, los datos de la cuenta y el progreso se almacenan en el navegador mediante localStorage. No existe un servidor que proteja estas credenciales. No uses una contraseña que reutilices en otros servicios.</p>
+          <h3>4. Contenido de demostración</h3>
+          <p>Mentores, retos, planes y algunas experiencias son simulados. No representan ofertas laborales ni profesionales verificados.</p>
+          <h3>5. Suscripciones</h3>
+          <p>Los botones PRO y PREMIUM funcionan como demostración local. Esta versión no procesa pagos ni guarda datos bancarios.</p>
+          <h3>6. Aceptación</h3>
+          <p>Al continuar declaras que has leído y aceptas estas condiciones de uso de esta versión de demostración.</p>
+        </div>
+        <label class="goal" style="margin-top:12px"><input type="checkbox" id="termsCheck"><span>Acepto los términos y condiciones.</span></label>
+        <div class="gateActions"><span></span><button class="btn primary" onclick="acceptTerms()">Continuar al tutorial →</button></div>
+      </section>
+
+      <section id="gateTutorial" class="gateScreen">
+        <h2 class="gateTitle">Conoce Ikigai Go</h2>
+        <p class="gateSub">Un tutorial corto para que sepas qué puedes hacer en la aplicación.</p>
+        <div id="tutorialSlides">
+          <div class="tutorialSlide active"><div class="tutorialIcon">🧭</div><h2>Explora</h2><p class="gateSub">Busca áreas profesionales y entra a experiencias pequeñas para probar actividades antes de decidir.</p></div>
+          <div class="tutorialSlide"><div class="tutorialIcon">🧠</div><h2>Conócete</h2><p class="gateSub">Completa el cuestionario de 30 preguntas y usa el resultado como punto de partida, no como una etiqueta definitiva.</p></div>
+          <div class="tutorialSlide"><div class="tutorialIcon">🛠️</div><h2>Practica</h2><p class="gateSub">Desarrolla habilidades, completa retos y guarda proyectos en tu recorrido.</p></div>
+          <div class="tutorialSlide"><div class="tutorialIcon">🎯</div><h2>Construye tu plan</h2><p class="gateSub">Marca metas y sigue tus avances. Tu progreso queda asociado a tu cuenta local.</p></div>
+        </div>
+        <div class="tutorialDots"><span class="tutorialDot on"></span><span class="tutorialDot"></span><span class="tutorialDot"></span><span class="tutorialDot"></span></div>
+        <div class="gateActions"><button class="btn soft" id="tutorialBack" onclick="tutorialPrev()">← Atrás</button><button class="btn primary" id="tutorialNext" onclick="tutorialNext()">Siguiente →</button></div>
+      </section>
+
+      <section id="gateAuth" class="gateScreen">
+        <h2 class="gateTitle">Inicia sesión</h2>
+        <p class="gateSub">Accede a tu progreso o crea una cuenta nueva.</p>
+        <div class="authTabs">
+          <button class="authTab active" onclick="switchAuth('login')">Iniciar sesión</button>
+          <button class="authTab" onclick="switchAuth('register')">Crear cuenta</button>
+          <button class="authTab" onclick="switchAuth('admin')">Administrador</button>
+        </div>
+        <div id="authError" class="authError"></div>
+
+        <form id="loginForm" class="authForm active" onsubmit="event.preventDefault();loginUser()">
+          <div class="field"><label>Correo, teléfono o usuario</label><input id="loginIdentifier" autocomplete="username" placeholder="correo, número o usuario"></div>
+          <div class="field"><label>Contraseña</label><input id="loginPassword" type="password" autocomplete="current-password" placeholder="Tu contraseña"></div>
+          <button class="btn primary" style="width:100%;margin-top:8px">Entrar →</button>
+        </form>
+
+        <form id="registerForm" class="authForm" onsubmit="event.preventDefault();registerUser()">
+          <div class="formRow">
+            <div class="field"><label>Usuario</label><input id="regUsername" autocomplete="username" placeholder="Ej. abraham23"></div>
+            <div class="field"><label>Teléfono</label><input id="regPhone" type="tel" autocomplete="tel" placeholder="+57 300 000 0000"></div>
+          </div>
+          <div class="field"><label>Correo</label><input id="regEmail" type="email" autocomplete="email" placeholder="tu@correo.com"></div>
+          <div class="formRow">
+            <div class="field"><label>Contraseña</label><input id="regPassword" type="password" autocomplete="new-password" placeholder="Mínimo 6 caracteres"></div>
+            <div class="field"><label>Confirmar contraseña</label><input id="regPassword2" type="password" autocomplete="new-password" placeholder="Repite la contraseña"></div>
+          </div>
+          <button class="btn primary" style="width:100%;margin-top:8px">Crear cuenta →</button>
+        </form>
+
+        <form id="adminForm" class="authForm" onsubmit="event.preventDefault();loginAdmin()">
+          <div class="authNotice">Acceso de administrador de esta demo. La clave configurada es la solicitada para esta versión.</div>
+          <div class="field"><label>Clave de administrador</label><input id="adminKey" type="password" autocomplete="off" placeholder="Clave"></div>
+          <button class="btn primary" style="width:100%;margin-top:8px">Entrar como administrador →</button>
+        </form>
+      </section>
+    </div>
+  </div>
+</div>
+
+<div class="app"><div class="shell">
+<header>
+<div class="brand"><div class="logo"><span>iK</span></div><div>Ikigai Go<div style="font-size:11px;color:var(--muted);font-weight:650">Descubre tu camino</div></div></div>
+<div class="userHeader"><div class="userMeta"><b id="headerUser">Usuario</b><small id="headerRole">Cuenta personal</small></div><div class="avatar" id="headerAvatar">U</div><button class="btn outline logoutBtn" onclick="logout()">Salir</button></div>
+</header>
+
+<main>
+<section id="inicio" class="view active">
+<div class="hero"><h1>Descubre tu propósito. Diseña tu futuro.</h1><p>Una experiencia para conocerte mejor, explorar caminos vocacionales, desarrollar habilidades y convertir tus intereses en proyectos reales.</p><button class="btn light" onclick="startQuiz()">Comenzar cuestionario →</button><div style="margin-top:11px;font-size:11px;opacity:.86">📱 Experiencia optimizada para celular</div></div>
+<div class="section"><div><h2>Las 3 reglas de Ikigai Go</h2><p>El corazón de la aplicación.</p></div></div>
+<div class="grid">
+<div class="card pillar action-card" onclick="showView('vocacional')"><div class="num">1</div><h3>Orientación Vocacional</h3><p>Práctica real: micro-pasantías para experimentar tareas de profesiones reales.</p><p style="margin-top:8px"><b>Decisión informada:</b> explora opciones con evidencia sobre tus intereses, no por suposiciones.</p></div>
+<div class="card pillar action-card" onclick="showView('habilidades')"><div class="num">2</div><h3>Mercado de Habilidades</h3><p>Convierte lo que sabes en una habilidad útil: crea soluciones, portafolio y pequeños proyectos.</p><p style="margin-top:8px"><b>Emprendimiento temprano:</b> aprende a generar valor de forma responsable.</p></div>
+<div class="card pillar action-card" onclick="showView('mentoria')"><div class="num">3</div><h3>Conexión y Mentoría</h3><p>Retos de empresas: resuelve problemas prácticos y construye experiencia.</p><p style="margin-top:8px"><b>Puente profesional:</b> conecta con mentores y oportunidades de aprendizaje.</p></div>
+</div>
+<div class="stats">
+<div class="stat"><b id="statProgress">0%</b><span>Progreso</span></div><div class="stat"><b id="statQuiz">0/30</b><span>Preguntas</span></div><div class="stat"><b id="statGoals">0/5</b><span>Metas</span></div><div class="stat"><b id="statPlan">Gratis</b><span>Plan actual</span></div>
+</div>
+<div class="section"><div><h2>Tu recorrido</h2><p>Guarda tu avance automáticamente en este navegador.</p></div></div>
+<div class="grid2">
+<div class="card resource"><div class="ico">🧠</div><div><h3>Cuestionario psicológico-vocacional</h3><p>30 ítems basados en dimensiones de intereses vocacionales RIASEC y rasgos de personalidad. Es orientativo, no diagnóstico clínico.</p></div></div>
+<div class="card resource"><div class="ico">🗺️</div><div><h3>Plan de desarrollo personal</h3><p>Recibe metas y recursos adaptados a tus resultados y marca cada paso como completado.</p></div></div>
+</div>
+</section>
+
+<section id="cuestionario" class="view"><div class="quiz">
+<div class="quizhead"><h1>Cuestionario psicológico-vocacional</h1><p>30 preguntas · aproximadamente 8–12 minutos · escala de 1 a 5</p></div>
+<div class="notice">No existen respuestas “buenas” o “malas”. Responde pensando en cómo eres normalmente. Este cuestionario es orientativo y no sustituye una evaluación profesional.</div>
+<div class="step"><span id="qStep">Pregunta 1 de 30</span><span id="qPct">3%</span></div><div class="progress"><div id="qBar" class="bar" style="width:3%"></div></div>
+<div class="qcard" style="margin-top:18px"><h2 id="qTitle"></h2><p class="desc" id="qDesc"></p><div id="options" class="options"></div><div class="actions"><button class="btn soft" onclick="prevQ()">← Anterior</button><button class="btn primary" id="nextBtn" onclick="nextQ()">Siguiente →</button></div></div>
+</div></section>
+
+<section id="resultado" class="view"><div class="result"><div class="resultTop"><div class="resultIcon" id="resultIcon">🧭</div><div><h1 id="resultTitle">Tu perfil</h1><p id="resultText" style="margin:0"></p></div></div><div class="section"><div><h2>Tus dimensiones principales</h2><p>Se calculan a partir de tus respuestas.</p></div></div><div id="resultScores" class="grid"></div><div class="section"><div><h2>Áreas para explorar</h2><p>Son posibilidades de investigación, no una decisión definitiva.</p></div></div><div id="resultAreas" class="grid"></div><div style="margin-top:20px"><button class="btn primary" onclick="showView('plan')">Ver mi plan de desarrollo →</button></div></div></section>
+
+<section id="vocacional" class="view"><div class="section"><div><h1 style="margin:0">1. Orientación Vocacional</h1><p>Práctica real y decisión informada.</p></div></div><div class="grid"><div class="card action-card" onclick="startQuiz()"><div class="ico">🧠</div><h3>Cuestionario psicológico-vocacional</h3><p>30 preguntas sobre intereses, estilo de trabajo y personalidad.</p><button class="btn primary" style="margin-top:12px">Hacer cuestionario →</button></div><div class="card"><div class="ico">🧭</div><h3>Decisión informada</h3><p>Compara áreas, habilidades, tareas y rutas de formación antes de decidir.</p><button class="btn soft" style="margin-top:12px" onclick="showView('explorar')">Comparar áreas →</button></div><div class="card"><div class="ico">🧪</div><h3>Micro-pasantías</h3><p>Prueba tareas de profesiones distintas en experiencias cortas.</p><button class="btn soft" style="margin-top:12px" onclick="showModal('Micro-pasantías','Elige una experiencia corta, completa el reto y guarda tu reflexión en tu progreso.')">Ver experiencias →</button></div></div></section>
+<section id="habilidades" class="view"><div class="section"><div><h1 style="margin:0">2. Mercado de Habilidades</h1><p>Aprende a convertir habilidades en soluciones.</p></div></div><div class="grid2"><div class="card"><h2>💰 Venta de Soluciones</h2><p>Practica ofreciendo soluciones sencillas basadas en una habilidad que estés desarrollando.</p><div class="task"><div class="ico">🎨</div><div><h3>Diseño rápido</h3><p>Piezas para redes, presentaciones y proyectos.</p><button class="btn green" onclick="startSkill('Diseño rápido')">Practicar →</button></div></div><div class="task"><div class="ico">💻</div><div><h3>Páginas web</h3><p>Construye una página sencilla como proyecto de práctica.</p><button class="btn green" onclick="startSkill('Páginas web')">Practicar →</button></div></div><div class="task"><div class="ico">🎬</div><div><h3>Edición de contenido</h3><p>Practica edición de videos y piezas digitales.</p><button class="btn green" onclick="startSkill('Edición de contenido')">Practicar →</button></div></div></div><div class="card"><h2>🚀 Emprendimiento Temprano</h2><p>Problema → cliente → solución → prueba → mejora.</p><button class="btn primary" style="margin-top:14px" onclick="showView('emprendimiento');renderBiz(0)">Generar reto de emprendimiento →</button><div id="ideaBox" class="notice" style="display:none;margin-top:15px"></div><div class="task"><div class="ico">📁</div><div><h3>Mi portafolio</h3><p>Organiza tus proyectos, habilidades y evidencias.</p><button class="btn soft" onclick="showModal('Mi portafolio','En esta versión puedes registrar tus proyectos y preparar la estructura para añadir enlaces y archivos en una futura versión.')">Abrir →</button></div></div></div></div></section>
+<section id="mentoria" class="view"><div class="section"><div><h1 style="margin:0">3. Conexión y Mentoría</h1><p>Retos de empresas y puente profesional.</p></div></div><div class="grid2"><div class="card"><h2>⭐ Retos de Empresas</h2><p>Problemas simulados para practicar y construir experiencia.</p><div class="task"><div class="ico">🏢</div><div><h3>Reto: solución digital</h3><p>Propón una herramienta para organizar clientes de un negocio.</p><button class="btn soft" onclick="startChallenge('Reto de solución digital')">Abrir reto →</button></div></div><div class="task"><div class="ico">📣</div><div><h3>Reto: campaña creativa</h3><p>Diseña una campaña para un producto ficticio.</p><button class="btn soft" onclick="startChallenge('Reto de campaña creativa')">Abrir reto →</button></div></div><div class="task"><div class="ico">🌱</div><div><h3>Reto: impacto sostenible</h3><p>Propón una idea para reducir desperdicios.</p><button class="btn soft" onclick="startChallenge('Reto de impacto sostenible')">Abrir reto →</button></div></div></div><div class="card"><h2>🌉 Puente Profesional</h2><p>Conoce perfiles y prepara preguntas para profesionales.</p><div id="mentors"></div></div></div><div class="notice">Los retos y perfiles de esta demo son simulados: no son ofertas laborales reales ni garantizan empleo.</div></section>
+<section id="explorar" class="view">
+  <div class="exploreHero">
+    <h1>Explorar carreras, áreas y habilidades</h1>
+    <p>Investiga, compara y prueba caminos antes de tomar una decisión. Aquí tienes muchas más opciones para descubrir qué te interesa.</p>
+    <div class="exploreTools">
+      <button class="quickAction" onclick="showView('herramientas')"><span>🧰</span>Centro de herramientas<small>Más funciones de la app</small></button>
+      <button class="quickAction" onclick="showFavorites()"><span>⭐</span>Mis favoritos<small>Áreas que guardaste</small></button>
+      <button class="quickAction" onclick="showCompare()"><span>⚖️</span>Comparar áreas<small>Hasta 2 opciones</small></button>
+      <button class="quickAction" onclick="showView('plan')"><span>🗺️</span>Mi ruta<small>Plan y siguientes pasos</small></button>
+    </div>
+  </div>
+  <input id="search" class="search" placeholder="🔎 Buscar área, carrera, habilidad o profesión..." oninput="filterAreas()">
+  <div id="areaFilters" class="filterBar"></div>
+  <div class="exploreMeta"><span id="areaCount">0 opciones</span><span>💡 Consejo: guarda tus favoritas y luego compáralas.</span></div>
+  <div id="areaGrid" class="grid"></div>
+  <div id="compareBar" class="compareBar">
+    <div><span class="compareCount" id="compareCount">0 seleccionadas</span><div id="comparePills" class="compareList"></div></div>
+    <div style="display:flex;gap:7px"><button class="btn soft" onclick="clearCompare()">Limpiar</button><button class="btn primary" onclick="showCompare()">Comparar →</button></div>
+  </div>
+</section>
+
+
+<section id="areaDetalle" class="view">
+  <button class="back" onclick="showView('explorar')">← Volver a explorar</button>
+  <div class="flowHero"><div style="display:flex;justify-content:space-between;gap:12px;align-items:flex-start"><div><h1 id="areaTitle">Área profesional</h1><p id="areaSubtitle"></p></div><button id="detailFav" class="favBtn" onclick="toggleCurrentFavorite()" title="Guardar favorita">☆</button></div></div>
+  <div class="detailGrid">
+    <div class="card"><h2>¿Qué puedes hacer aquí?</h2><div id="areaActions" class="miniList"></div></div>
+    <div class="card"><h2>Ruta de prueba</h2><p>Prueba tareas pequeñas y reúne evidencias antes de decidir.</p><div id="areaCareers" class="miniList"></div></div>
+  </div>
+  <div class="grid2" style="margin-top:16px">
+    <div class="card"><h2>🧠 Habilidades que puedes practicar</h2><div id="areaSkills" class="chips" style="margin-top:13px"></div></div>
+    <div class="card"><h2>🎓 Rutas de formación para investigar</h2><div id="areaRoutes" class="pathList" style="margin-top:13px"></div></div>
+  </div>
+  <div class="section"><div><h2>Comienza una experiencia</h2><p>La acción queda registrada en tu progreso.</p></div></div>
+  <div id="areaGoalStatus" class="notice" style="margin-bottom:14px;display:none"></div>
+  <div class="choiceGrid">
+    <button class="choice" onclick="startAreaPractice()"><div class="ico">🧪</div><h3>Hacer una prueba</h3><p>Realiza una actividad de 20–60 minutos relacionada con el área.</p></button>
+    <button class="choice" onclick="saveAreaGoal()"><div class="ico">🎯</div><h3>Añadir a mi ruta</h3><p>Guarda esta área como objetivo de exploración.</p></button>
+    <button class="choice" onclick="openCareerSimulator()"><div class="ico">🎮</div><h3>Simular una tarea</h3><p>Resuelve una mini misión parecida a una actividad profesional.</p></button>
+    <button class="choice" onclick="showCompareCurrent()"><div class="ico">⚖️</div><h3>Comparar esta área</h3><p>Compárala con otra opción que tengas en mente.</p></button>
+  </div>
+</section>
+
+<section id="habilidadDetalle" class="view">
+  <button class="back" onclick="showView('habilidades')">← Volver al mercado</button>
+  <div class="flowHero"><h1 id="skillTitle">Práctica de habilidad</h1><p id="skillSubtitle"></p></div>
+  <div class="card">
+    <div class="stepper"><span id="skillS1" class="stepDot on"></span><span id="skillS2" class="stepDot"></span><span id="skillS3" class="stepDot"></span></div>
+    <div id="skillStage"></div>
+  </div>
+</section>
+
+<section id="reto" class="view">
+  <button class="back" onclick="showView('mentoria')">← Volver a Conexión y Mentoría</button>
+  <div class="flowHero"><h1 id="challengeTitle">Reto de empresa</h1><p id="challengeBrief"></p></div>
+  <div class="detailGrid">
+    <div class="card"><h2>Tu misión</h2><div id="challengeMission"></div></div>
+    <div class="card"><h2>Cómo se evalúa</h2><div id="challengeCriteria"></div></div>
+  </div>
+  <div class="card" style="margin-top:16px">
+    <h2>Entrega tu solución</h2>
+    <div class="field"><label>Nombre de tu propuesta</label><input id="challengeName" placeholder="Ej. Cliente Fácil"></div>
+    <div class="field"><label>¿Cuál es el problema?</label><textarea id="challengeProblem" placeholder="Explica qué problema estás resolviendo..."></textarea></div>
+    <div class="field"><label>¿Cuál es tu solución?</label><textarea id="challengeSolution" placeholder="Describe tu idea, cómo funcionaría y para quién..."></textarea></div>
+    <button class="btn primary" onclick="submitChallenge()">Guardar y entregar reto</button>
+    <div id="challengeStatus" style="margin-top:12px"></div>
+  </div>
+</section>
+
+<section id="puente" class="view">
+  <button class="back" onclick="showView('mentoria')">← Volver a Conexión y Mentoría</button>
+  <div class="flowHero"><h1>🌉 Puente Profesional</h1><p>Conoce perfiles, elige un mentor y prepara una conversación concreta.</p></div>
+  <div id="mentorDetail"></div>
+</section>
+
+<section id="emprendimiento" class="view">
+  <button class="back" onclick="showView('habilidades')">← Volver al Mercado</button>
+  <div class="flowHero"><h1>🚀 Emprendimiento Temprano</h1><p>Construye una idea paso a paso: problema → cliente → solución → prueba.</p></div>
+  <div class="card">
+    <div class="stepper"><span class="stepDot on" id="biz1"></span><span class="stepDot" id="biz2"></span><span class="stepDot" id="biz3"></span><span class="stepDot" id="biz4"></span></div>
+    <div id="bizStage"></div>
+  </div>
+</section>
+
+<section id="orientacion" class="view">
+  <button class="back" onclick="showView('inicio')">← Volver al inicio</button>
+  <div class="flowHero"><h1>🧭 Orientación Vocacional</h1><p>No solo obtienes un resultado: investigas, pruebas y registras lo que descubres.</p></div>
+  <div class="choiceGrid">
+    <button class="choice" onclick="startQuiz()"><div class="ico">🧠</div><h3>Cuestionario</h3><p>Completa o continúa las 30 preguntas.</p></button>
+    <button class="choice" onclick="showView('explorar')"><div class="ico">🔎</div><h3>Investigar profesiones</h3><p>Explora tareas y habilidades de distintas áreas.</p></button>
+    <button class="choice" onclick="showView('plan')"><div class="ico">🎯</div><h3>Mi siguiente paso</h3><p>Convierte lo aprendido en una meta concreta.</p></button>
+    <button class="choice" onclick="showView('mentoria')"><div class="ico">🤝</div><h3>Hablar con un mentor</h3><p>Prepara preguntas y solicita una conversación.</p></button>
+  </div>
+</section>
+
+<section id="plan" class="view"><div class="section"><div><h1 style="margin:0">Plan de desarrollo</h1><p>Tu hoja de ruta hacia tu propósito.</p></div></div><div class="card"><div class="progress"><div id="planBar" class="bar"></div></div><p id="planText" style="margin-top:9px">0% completado</p><div id="goals"></div></div><div class="section"><div><h2>Recursos</h2><p>Aprende y practica.</p></div></div><div id="resources" class="grid"></div></section>
+
+<section id="planos" class="view"><div class="section"><div><h1 style="margin:0">Planes</h1><p>Elige las herramientas que quieres desbloquear.</p></div></div><div class="grid2">
+<div class="card plan pro"><span class="badge">PRO</span><h2>PRO</h2><p>Más herramientas y acompañamiento para avanzar.</p><div class="price">$30.000 <small>COP / mes</small></div><ul class="benefits"><li>Resultado detallado del cuestionario</li><li>Plan de desarrollo personalizado</li><li>Acceso a cursos y recursos PRO</li><li>Seguimiento de progreso avanzado</li><li>1 sesión de mentoría al mes</li><li>Retos profesionales PRO</li></ul><button class="btn primary" onclick="choosePlan('PRO')">Elegir PRO</button></div>
+<div class="card plan premium"><span class="badge">PREMIUM</span><h2>PREMIUM</h2><p>Todo lo de PRO más experiencias de acompañamiento.</p><div class="price">$60.000 <small>COP / mes</small></div><ul class="benefits"><li>Todo lo incluido en PRO</li><li>2 sesiones de mentoría al mes</li><li>Retos Premium y proyectos especiales</li><li>Talleres en vivo</li><li>Comunidad Premium</li><li>Perfil y portafolio avanzado</li></ul><button class="btn" style="background:#f1b839;color:#fff" onclick="choosePlan('PREMIUM')">Elegir Premium</button></div>
+</div><div class="card" style="margin-top:15px"><b>Importante:</b> en esta versión el botón de suscripción activa el plan localmente para que puedas probar las funciones. No procesa cobros reales ni guarda datos bancarios.</div></section>
+
+<section id="perfil" class="view"><div class="section"><div><h1 style="margin:0">Mi perfil</h1><p>Tu evolución y configuración.</p></div></div><div class="grid2"><div class="card"><h2>Resumen</h2><p id="profileName">Usuario</p><div class="progress" style="margin-top:12px"><div id="profileBar" class="bar"></div></div><p id="profileSummary" style="margin-top:8px">Comienza el cuestionario para construir tu perfil.</p></div><div class="card"><h2>Mis metas</h2><p>Marca tus avances desde el Plan de desarrollo.</p><button class="btn soft" onclick="showView('plan')">Abrir mi plan</button></div></div><div class="card" style="margin-top:15px"><h2>🧰 Más funciones</h2><p>Explora favoritos, comparador, diario, hábitos, biblioteca y portafolio.</p><button class="btn primary" style="margin-top:12px" onclick="showView('herramientas')">Abrir centro de herramientas →</button><button class="btn soft" style="margin-top:12px;margin-left:7px" onclick="showView('configuracion')">⚙️ Configuración</button></div></section>
+
+<section id="admin" class="view">
+  <div class="section"><div><h1 style="margin:0">🛡️ Panel de administrador</h1><p>Gestión local de las cuentas creadas en este navegador.</p></div><span class="adminBadge">ADMIN</span></div>
+  <div class="grid">
+    <div class="stat"><b id="adminUsers">0</b><span>Usuarios registrados</span></div>
+    <div class="stat"><b id="adminActive">0</b><span>Sesión actual</span></div>
+    <div class="stat"><b id="adminCompleted">0</b><span>Cuestionarios completos</span></div>
+    <div class="stat"><b id="adminPlans">0</b><span>Planes de pago simulados</span></div>
+  </div>
+  <div class="card adminPanel">
+    <h2>Usuarios</h2>
+    <p>Estos datos solo existen en el almacenamiento local de este navegador. Para una aplicación real se necesita un backend seguro.</p>
+    <div style="overflow:auto"><table class="adminTable"><thead><tr><th>Usuario</th><th>Correo</th><th>Teléfono</th><th>Plan</th><th>Cuestionario</th></tr></thead><tbody id="adminUserRows"></tbody></table></div>
+  </div>
+  <div class="card" style="margin-top:15px">
+    <h2>Diagnóstico rápido</h2>
+    <div id="diagnosticBox" class="notice">Ejecutando comprobaciones…</div>
+  </div>
+</section>
+
+</main>
+
+
+<section id="herramientas" class="view">
+  <button class="back" onclick="showView('explorar')">← Volver a explorar</button>
+  <div class="flowHero"><h1>🧰 Centro de herramientas</h1><p>Un espacio para organizar tu exploración, aprender, practicar y convertir ideas en proyectos.</p></div>
+  <div class="toolGrid">
+    <div class="toolCard"><div class="toolIcon">🧠</div><h3>Perfil vocacional</h3><p>Consulta tus resultados, dimensiones y áreas relacionadas.</p><button class="btn primary" onclick="state.scores?showView('resultado'):startQuiz()">Abrir →</button></div>
+    <div class="toolCard"><div class="toolIcon">📚</div><h3>Biblioteca de aprendizaje</h3><p>Recursos sobre comunicación, productividad, creatividad, finanzas y más.</p><button class="btn soft" onclick="openLibrary()">Abrir biblioteca →</button></div>
+    <div class="toolCard"><div class="toolIcon">🏆</div><h3>Retos prácticos</h3><p>Misiones de tecnología, diseño, negocios, impacto y comunicación.</p><button class="btn soft" onclick="showView('mentoria')">Ver retos →</button></div>
+    <div class="toolCard"><div class="toolIcon">📁</div><h3>Portafolio</h3><p>Registra proyectos, habilidades, evidencias y lo que aprendiste.</p><button class="btn soft" onclick="openPortfolio()">Mi portafolio →</button></div>
+    <div class="toolCard"><div class="toolIcon">⭐</div><h3>Favoritos</h3><p>Guarda áreas que quieras investigar después.</p><button class="btn soft" onclick="showFavorites()">Ver favoritos →</button></div>
+    <div class="toolCard"><div class="toolIcon">⚖️</div><h3>Comparador</h3><p>Compara dos áreas por tareas, habilidades, formación y prueba inicial.</p><button class="btn soft" onclick="showCompare()">Comparar →</button></div>
+    <div class="toolCard"><div class="toolIcon">📔</div><h3>Diario vocacional</h3><p>Escribe descubrimientos, dudas y decisiones para no perder tu proceso.</p><button class="btn soft" onclick="openDiary()">Abrir diario →</button></div>
+    <div class="toolCard"><div class="toolIcon">🔥</div><h3>Hábitos</h3><p>Marca pequeñas acciones de aprendizaje durante la semana.</p><button class="btn soft" onclick="openHabits()">Ver hábitos →</button></div>
+  </div>
+  <div class="section"><div><h2>⚡ Acciones rápidas</h2><p>Todo lo importante a un toque.</p></div></div>
+  <div class="grid2">
+    <div class="card"><h2>🗺️ Diseñar mi ruta</h2><p>Combina cuestionario, exploración, práctica, aprendizaje y proyecto.</p><button class="btn primary" style="margin-top:13px" onclick="showView('plan')">Abrir mi plan →</button></div>
+    <div class="card"><h2>💼 Crear experiencia</h2><p>Elige una habilidad y conviértela en una práctica que puedas mostrar.</p><button class="btn primary" style="margin-top:13px" onclick="showView('habilidades')">Empezar práctica →</button></div>
+  </div>
+</section>
+
+<section id="comparador" class="view">
+  <button class="back" onclick="showView('explorar')">← Volver a explorar</button>
+  <div class="flowHero"><h1>⚖️ Comparador de áreas</h1><p>Compara información descriptiva para decidir qué quieres investigar primero.</p></div>
+  <div id="compareContent"></div>
+</section>
+
+<section id="biblioteca" class="view">
+  <button class="back" onclick="showView('herramientas')">← Volver a herramientas</button>
+  <div class="flowHero"><h1>📚 Biblioteca de aprendizaje</h1><p>Recursos cortos para desarrollar habilidades transferibles.</p></div>
+  <div id="libraryGrid" class="grid"></div>
+</section>
+
+<section id="portafolio" class="view">
+  <button class="back" onclick="showView('herramientas')">← Volver a herramientas</button>
+  <div class="flowHero"><h1>📁 Mi portafolio</h1><p>Registra proyectos y evidencias de lo que has aprendido.</p></div>
+  <div class="grid2">
+    <div class="card">
+      <h2>Nuevo proyecto</h2>
+      <div class="field"><label>Nombre del proyecto</label><input id="portfolioName" placeholder="Ej. Página web para un negocio ficticio"></div>
+      <div class="field"><label>Habilidad utilizada</label><input id="portfolioSkill" placeholder="Ej. Diseño, programación, comunicación"></div>
+      <div class="field"><label>¿Qué hice y qué aprendí?</label><textarea id="portfolioDesc" placeholder="Describe el problema, tu solución y lo que mejorarías..."></textarea></div>
+      <button class="btn primary" onclick="savePortfolio()">Guardar proyecto ✓</button>
+    </div>
+    <div class="card"><h2>Mis proyectos</h2><div id="portfolioList"></div></div>
+  </div>
+</section>
+
+<section id="diario" class="view">
+  <button class="back" onclick="showView('herramientas')">← Volver a herramientas</button>
+  <div class="flowHero"><h1>📔 Diario vocacional</h1><p>Registra lo que descubres después de cada prueba o investigación.</p></div>
+  <div class="diaryBox">
+    <div class="field"><label>¿Qué descubrí hoy?</label><textarea id="diaryText" placeholder="Ej. Me gustó investigar cómo se crean productos digitales..."></textarea></div>
+    <button class="btn primary" onclick="saveDiary()">Guardar reflexión ✓</button>
+    <div id="diaryEntries" class="diaryEntries"></div>
+  </div>
+</section>
+
+<section id="habitos" class="view">
+  <button class="back" onclick="showView('herramientas')">← Volver a herramientas</button>
+  <div class="flowHero"><h1>🔥 Hábitos de exploración</h1><p>Pequeñas acciones repetidas pueden ayudarte a construir un proceso constante.</p></div>
+  <div class="card">
+    <h2>Mi hábito de hoy</h2><p>Elige una acción: investigar una carrera, practicar una habilidad, leer un recurso o escribir una reflexión.</p>
+    <div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:13px">
+      <button class="btn soft" onclick="markHabit()">✓ Marcar hoy</button>
+      <button class="btn outline" onclick="resetHabits()">Reiniciar semana</button>
+    </div>
+    <div id="habitLabels" class="habitLabels" style="margin-top:18px"></div>
+    <div id="habitGrid" class="habitGrid"></div>
+    <p id="habitSummary" style="margin-top:12px"></p>
+  </div>
+</section>
+
+
+<section id="configuracion" class="view">
+  <button class="back" onclick="showView('perfil')">← Volver a mi perfil</button>
+  <div class="flowHero">
+    <h1>⚙️ Configuración</h1>
+    <p>Personaliza Ikigai Go, controla tu experiencia y administra tus datos guardados en este navegador.</p>
+  </div>
+
+  <div class="settingsGrid">
+    <div class="settingsCard">
+      <h3>🎨 Apariencia</h3>
+      <p>Personaliza cómo se ve la aplicación.</p>
+      <div class="settingRow">
+        <div class="settingText"><b>Tema oscuro</b><span>Cambia entre apariencia clara y oscura.</span></div>
+        <button id="settingDark" class="toggle" onclick="toggleSetting('darkMode')" aria-label="Tema oscuro"></button>
+      </div>
+      <div class="settingRow">
+        <div class="settingText"><b>Texto grande</b><span>Aumenta ligeramente el tamaño del texto.</span></div>
+        <button id="settingLarge" class="toggle" onclick="toggleSetting('largeText')" aria-label="Texto grande"></button>
+      </div>
+      <div class="settingRow">
+        <div class="settingText"><b>Vista compacta</b><span>Reduce espacios para mostrar más contenido.</span></div>
+        <button id="settingCompact" class="toggle" onclick="toggleSetting('compact')" aria-label="Vista compacta"></button>
+      </div>
+    </div>
+
+    <div class="settingsCard">
+      <h3>🔔 Experiencia</h3>
+      <p>Controla sonidos, avisos y comportamiento.</p>
+      <div class="settingRow">
+        <div class="settingText"><b>Sonidos</b><span>Pequeño sonido al completar acciones.</span></div>
+        <button id="settingSound" class="toggle" onclick="toggleSetting('sound')" aria-label="Sonidos"></button>
+      </div>
+      <div class="settingRow">
+        <div class="settingText"><b>Confirmar acciones</b><span>Pide confirmación antes de borrar o reiniciar.</span></div>
+        <button id="settingConfirm" class="toggle" onclick="toggleSetting('confirm')" aria-label="Confirmar acciones"></button>
+      </div>
+      <div class="settingRow">
+        <div class="settingText"><b>Guardado automático</b><span>Guarda tu progreso localmente después de cada acción.</span></div>
+        <button id="settingAutosave" class="toggle" onclick="toggleSetting('autosave')" aria-label="Guardado automático"></button>
+      </div>
+    </div>
+
+    <div class="settingsCard">
+      <h3>♿ Accesibilidad</h3>
+      <p>Haz la experiencia más cómoda.</p>
+      <div class="settingRow">
+        <div class="settingText"><b>Reducir animaciones</b><span>Desactiva transiciones y movimientos innecesarios.</span></div>
+        <button id="settingMotion" class="toggle" onclick="toggleSetting('reducedMotion')" aria-label="Reducir animaciones"></button>
+      </div>
+      <div class="settingRow">
+        <div class="settingText"><b>Idioma</b><span>Idioma disponible actualmente en esta versión.</span></div>
+        <select id="settingLanguage" onchange="setLanguage(this.value)" style="padding:9px;border:1px solid var(--line);border-radius:10px">
+          <option value="es">Español</option><option value="en">English — próximamente</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="settingsCard">
+      <h3>🔐 Privacidad y datos</h3>
+      <p>Esta versión guarda el progreso en el almacenamiento local del navegador.</p>
+      <div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:14px">
+        <button class="btn soft" onclick="exportUserData()">⬇️ Exportar mis datos</button>
+        <button class="btn outline" onclick="showDataInfo()">ℹ️ ¿Dónde se guardan?</button>
+      </div>
+    </div>
+
+    <div class="settingsCard">
+      <h3>📘 Tutorial y ayuda</h3>
+      <p>Revisa las indicaciones iniciales o vuelve a conocer las funciones principales.</p>
+      <div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:14px">
+        <button class="btn soft" onclick="restartTutorial()">↻ Ver tutorial otra vez</button>
+        <button class="btn outline" onclick="showHelpCenter()">❓ Centro de ayuda</button>
+      </div>
+    </div>
+
+    <div class="settingsCard">
+      <h3>👤 Cuenta</h3>
+      <p>Administra tu sesión y la información de tu cuenta local.</p>
+      <div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:14px">
+        <button class="btn soft" onclick="showAccountSummary()">Ver mi cuenta</button>
+        <button class="btn outline" onclick="logout()">Cerrar sesión</button>
+      </div>
+    </div>
+
+    <div class="settingsCard dangerZone" style="grid-column:1/-1">
+      <h3>⚠️ Zona de datos</h3>
+      <p>Estas acciones afectan el progreso guardado para esta cuenta en este navegador.</p>
+      <div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:14px">
+        <button class="btn danger" onclick="resetProgress()">Reiniciar mi progreso</button>
+        <button class="btn danger" onclick="deleteLocalAccount()">Eliminar datos locales de esta cuenta</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<nav>
+<button id="nav-inicio" class="active" onclick="showView('inicio')"><span class="ni">⌂</span>Inicio</button>
+<button id="nav-explorar" onclick="showView('explorar')"><span class="ni">◉</span>Explorar</button>
+<button id="nav-cuestionario" onclick="startQuiz()"><span class="ni">🧠</span>Cuestionario</button>
+<button id="nav-planos" onclick="showView('planos')"><span class="ni">♕</span>Plan</button>
+<button id="nav-perfil" onclick="showView('perfil')"><span class="ni">●</span>Perfil</button><button id="nav-admin" style="display:none" onclick="showView('admin')"><span class="ni">🛡️</span>Admin</button>
+</nav>
+<div id="toast" class="toast"></div>
+
+<div id="modal" class="modal" aria-hidden="true">
+  <div class="modalBox">
+    <button class="modalClose" onclick="closeModal()" aria-label="Cerrar">×</button>
+    <h2 id="modalTitle"></h2>
+    <div id="modalText" style="color:var(--muted);line-height:1.55"></div>
+    <div id="modalActions" style="display:flex;gap:8px;flex-wrap:wrap;margin-top:16px"></div>
+  </div>
+</div>
+
+<div id="experienceModal" class="modal" aria-hidden="true">
+  <div class="modalBox experienceBox">
+    <button class="modalClose" onclick="closeExperience()" aria-label="Cerrar">×</button>
+    <div class="experienceHeader">
+      <div>
+        <div id="experienceType" class="areaTag" style="display:inline-block">PRUEBA PRÁCTICA</div>
+        <h2 id="experienceTitle" style="margin:8px 0 4px">Experiencia</h2>
+        <p id="experienceSubtitle" style="margin:0;color:var(--muted)"></p>
+      </div>
+      <div><div id="experienceTimer" class="timerBadge">20:00</div><div class="timerWarning">⚠️ NO CERRAR — podrías perder el progreso de esta prueba.</div></div>
+    </div>
+    <div id="experienceProgress" class="experienceProgress"></div>
+    <div id="experienceContent"></div>
+  </div>
+</div>
+
+</div></div>
+
+<script>
+const questions=[
+["Me gusta construir, reparar o trabajar con objetos y herramientas.","Realista","Intereses"],["Disfruto resolver problemas usando lógica y análisis.","Investigador","Intereses"],["Me atrae crear dibujos, diseños, historias o contenido.","Artístico","Intereses"],["Me gusta ayudar, enseñar o escuchar a otras personas.","Social","Intereses"],["Me interesa convencer, liderar o iniciar proyectos.","Emprendedor","Intereses"],["Me gustan las actividades que requieren orden, precisión y organización.","Convencional","Intereses"],
+["Prefiero aprender haciendo cosas prácticas.","Realista","Estilo"],["Me gusta entender por qué ocurren las cosas antes de actuar.","Investigador","Estilo"],["Necesito libertad para encontrar mi propia manera de hacer algo.","Artístico","Estilo"],["Aprendo mejor conversando y trabajando con otras personas.","Social","Estilo"],["Me motiva convertir una idea en un proyecto concreto.","Emprendedor","Estilo"],["Me siento cómodo siguiendo procesos claros y revisando detalles.","Convencional","Estilo"],
+["Suelo mantener la calma cuando aparece un problema inesperado.","Estabilidad","Personalidad"],["Soy curioso y disfruto aprender temas nuevos.","Apertura","Personalidad"],["Me resulta natural organizar tareas y cumplir objetivos.","Responsabilidad","Personalidad"],["Me energiza participar en grupos y conocer gente.","Sociabilidad","Personalidad"],["Intento comprender cómo se sienten las demás personas.","Amabilidad","Personalidad"],["Puedo concentrarme durante bastante tiempo en una tarea.","Responsabilidad","Personalidad"],
+["Antes de elegir una carrera, quiero probar actividades relacionadas.","Investigador","Decisión"],["Me gustaría conocer diferentes profesiones por dentro.","Social","Decisión"],["Prefiero comparar opciones con información concreta.","Convencional","Decisión"],["Me gustaría crear un proyecto para descubrir si una habilidad me gusta.","Emprendedor","Decisión"],["Quiero tener espacio para explorar mi creatividad.","Artístico","Decisión"],["Me atrae aprender habilidades técnicas que puedan aplicarse a proyectos reales.","Realista","Decisión"],
+["Cuando trabajo en equipo, suelo tomar la iniciativa.","Emprendedor","Conducta"],["Cuando alguien necesita ayuda, intento aportar una solución.","Social","Conducta"],["Si algo no funciona, pruebo distintas explicaciones hasta entenderlo.","Investigador","Conducta"],["Cuido los detalles aunque la tarea sea repetitiva.","Convencional","Conducta"],["Disfruto experimentar con ideas diferentes aunque todavía no sepa el resultado.","Artístico","Conducta"],["Me gusta ver resultados concretos de lo que hice con mis manos o herramientas.","Realista","Conducta"]
+];
+const areas=[
+["💻","Tecnología e innovación","Programación, desarrollo web, inteligencia artificial, producto digital","tech"],
+["🎨","Arte y diseño","Diseño gráfico, UX/UI, ilustración, animación y creatividad","art"],
+["🧪","Ciencias e investigación","Biología, química, física, laboratorio, investigación y datos","science"],
+["🤝","Educación y personas","Docencia, orientación, psicología, trabajo social y desarrollo humano","people"],
+["📣","Marketing y comunicación","Publicidad, estrategia, redes, comunicación corporativa y contenido","business"],
+["💼","Negocios y emprendimiento","Administración, ventas, innovación, modelos de negocio y liderazgo","business"],
+["🏗️","Ingeniería y construcción","Ingeniería civil, mecánica, eléctrica, arquitectura y fabricación","tech"],
+["🌱","Naturaleza y medio ambiente","Sostenibilidad, conservación, agricultura y gestión ambiental","science"],
+["🏃","Deporte y actividad física","Entrenamiento, preparación física, deporte y rendimiento","people"],
+["🎬","Medios y producción","Video, fotografía, audio, cine, streaming y producción","art"],
+["📊","Finanzas y análisis","Economía, contabilidad, finanzas, estadística y analítica","business"],
+["🧑‍🍳","Gastronomía y servicios","Cocina, hotelería, turismo, eventos y experiencias","people"],
+["⚕️","Salud y bienestar","Salud, nutrición, actividad física, prevención y atención","people"],
+["⚖️","Derecho y ciencias sociales","Derecho, relaciones internacionales, sociología y políticas públicas","people"],
+["🧠","Psicología y comportamiento","Comportamiento humano, investigación, orientación y bienestar","people"],
+["🧬","Biotecnología","Genética, microbiología, bioinformática y aplicaciones biológicas","science"],
+["🔐","Ciberseguridad","Seguridad informática, redes, privacidad y gestión de riesgos","tech"],
+["🤖","Robótica y automatización","Robótica, sensores, control, automatización y sistemas","tech"],
+["📱","Producto digital","Apps, producto, experiencia de usuario, investigación y estrategia","tech"],
+["🗣️","Idiomas y traducción","Lenguas, traducción, interpretación y comunicación intercultural","people"],
+["🏛️","Arquitectura y urbanismo","Espacios, ciudad, planificación, diseño y construcción","tech"],
+["✈️","Turismo y aviación","Turismo, operación, hospitalidad, destinos y servicios","people"],
+["🚗","Automoción y movilidad","Vehículos, mantenimiento, movilidad, transporte y diseño técnico","tech"],
+["📰","Periodismo y comunicación pública","Investigación, escritura, medios, entrevistas y comunicación","art"]
+];
+
+const areaData={
+"ecnología e innovación":{desc:"Construye soluciones digitales y aprende a resolver problemas con tecnología.",actions:["Crear una página web","Probar una herramienta de IA","Diseñar una pequeña app","Resolver un problema con automatización"],careers:["Desarrollo de software","Diseño UX/UI","Ciencia de datos","Producto digital"],skills:["Lógica","Programación","Diseño de producto","Resolución de problemas"],routes:["Curso introductorio","Proyecto guiado","Portafolio","Exploración profesional"]},
+"Tecnología e innovación":{desc:"Construye soluciones digitales y aprende a resolver problemas con tecnología.",actions:["Crear una página web","Probar una herramienta de IA","Diseñar una pequeña app","Resolver un problema con automatización"],careers:["Desarrollo de software","Diseño UX/UI","Ciencia de datos","Producto digital"],skills:["Lógica","Programación","Diseño de producto","Resolución de problemas"],routes:["Curso introductorio","Proyecto guiado","Portafolio","Exploración profesional"]},
+"Arte y diseño":{desc:"Convierte ideas en experiencias visuales, productos y piezas creativas.",actions:["Rediseñar una pantalla","Crear una identidad visual","Hacer una ilustración","Diseñar una pieza para redes"],careers:["Diseño gráfico","UX/UI","Animación","Ilustración"],skills:["Composición","Creatividad","Tipografía","Investigación de usuarios"],routes:["Ejercicios creativos","Proyecto visual","Portafolio","Retroalimentación"]},
+"Ciencias e investigación":{desc:"Formula preguntas, analiza evidencia y experimenta para comprender cómo funciona el mundo.",actions:["Plantear una hipótesis","Analizar un conjunto de datos","Diseñar un experimento seguro","Leer y resumir una fuente"],careers:["Investigación","Laboratorio","Análisis de datos","Divulgación científica"],skills:["Pensamiento crítico","Método científico","Datos","Observación"],routes:["Curso base","Práctica de análisis","Proyecto","Presentación de resultados"]},
+"Educación y personas":{desc:"Trabaja con aprendizaje, acompañamiento, comunicación y desarrollo humano.",actions:["Diseñar una actividad educativa","Crear una guía","Preparar una entrevista","Resolver un caso de comunicación"],careers:["Docencia","Orientación","Psicología","Trabajo social"],skills:["Empatía","Comunicación","Facilitación","Escucha"],routes:["Fundamentos","Voluntariado seguro","Proyecto educativo","Reflexión"]},
+"Marketing y comunicación":{desc:"Investiga audiencias y crea mensajes para comunicar ideas con claridad.",actions:["Crear una campaña","Analizar una audiencia","Escribir una propuesta","Diseñar contenido"],careers:["Marketing","Publicidad","Comunicación","Contenido"],skills:["Escritura","Estrategia","Creatividad","Análisis"],routes:["Fundamentos","Mini campaña","Portafolio","Feedback"]},
+"Negocios y emprendimiento":{desc:"Explora problemas de clientes y convierte ideas en propuestas de valor.",actions:["Detectar una necesidad","Crear una propuesta","Diseñar una encuesta","Probar una idea"],careers:["Administración","Ventas","Emprendimiento","Innovación"],skills:["Negociación","Análisis","Presentación","Planificación"],routes:["Fundamentos","Experimento","Proyecto","Presentación"]},
+"Ingeniería y construcción":{desc:"Diseña, construye y mejora sistemas, estructuras, máquinas y procesos.",actions:["Resolver un problema de diseño","Hacer un prototipo simple","Analizar un proceso","Dibujar una solución"],careers:["Ingeniería","Arquitectura","Diseño técnico","Manufactura"],skills:["Matemática","Diseño","Prototipado","Seguridad"],routes:["Fundamentos","Simulación","Prototipo","Documentación"]},
+"Naturaleza y medio ambiente":{desc:"Investiga sistemas naturales y crea soluciones para usar recursos de forma responsable.",actions:["Auditar residuos","Mapear un problema ambiental","Diseñar una mejora","Investigar un ecosistema"],careers:["Ciencias ambientales","Agricultura","Conservación","Sostenibilidad"],skills:["Observación","Datos","Planificación","Pensamiento sistémico"],routes:["Fundamentos","Observación","Proyecto","Medición"]},
+"Deporte y actividad física":{desc:"Explora rendimiento, entrenamiento, movimiento y hábitos saludables.",actions:["Diseñar una sesión básica","Analizar una rutina","Investigar una disciplina","Registrar una práctica"],careers:["Entrenamiento","Preparación física","Gestión deportiva","Investigación"],skills:["Disciplina","Observación","Comunicación","Planificación"],routes:["Fundamentos","Práctica supervisada","Registro","Proyecto"]},
+"Medios y producción":{desc:"Cuenta historias mediante video, fotografía, audio y formatos digitales.",actions:["Grabar una pieza corta","Editar un video","Crear un guion","Producir un podcast breve"],careers:["Producción audiovisual","Edición","Fotografía","Audio"],skills:["Narrativa","Edición","Creatividad","Organización"],routes:["Técnica básica","Pieza corta","Portafolio","Publicación"]},
+"Finanzas y análisis":{desc:"Trabaja con números, información y decisiones económicas.",actions:["Crear un presupuesto","Analizar datos","Construir un gráfico","Comparar escenarios"],careers:["Contabilidad","Finanzas","Economía","Analítica"],skills:["Excel","Datos","Razonamiento cuantitativo","Atención al detalle"],routes:["Fundamentos","Ejercicio","Proyecto","Presentación"]},
+"Gastronomía y servicios":{desc:"Diseña experiencias y soluciones centradas en clientes y operaciones.",actions:["Diseñar un menú","Mapear una experiencia","Organizar un evento ficticio","Analizar un servicio"],careers:["Gastronomía","Hotelería","Turismo","Eventos"],skills:["Servicio","Organización","Creatividad","Operación"],routes:["Fundamentos","Práctica","Proyecto","Feedback"]},
+"Salud y bienestar":{desc:"Explora áreas de prevención, atención, hábitos y bienestar desde un enfoque responsable.",actions:["Investigar una profesión","Diseñar material educativo","Analizar un caso ficticio","Crear una guía de hábitos"],careers:["Profesiones de salud","Nutrición","Promoción de salud","Gestión"],skills:["Comunicación","Observación","Ética","Organización"],routes:["Introducción","Simulación","Proyecto educativo","Orientación profesional"]},
+"Derecho y ciencias sociales":{desc:"Analiza normas, sociedad, instituciones y problemas colectivos.",actions:["Analizar un caso ficticio","Comparar argumentos","Investigar una norma","Redactar una explicación"],careers:["Derecho","Relaciones internacionales","Sociología","Investigación social"],skills:["Lectura","Argumentación","Investigación","Escritura"],routes:["Fundamentos","Caso práctico","Ensayo","Debate"]},
+"Psicología y comportamiento":{desc:"Investiga cómo piensan, sienten y actúan las personas, respetando límites éticos.",actions:["Analizar un caso ficticio","Diseñar una encuesta","Investigar una teoría","Practicar escucha activa"],careers:["Psicología","Investigación","Orientación","Recursos humanos"],skills:["Escucha","Análisis","Investigación","Comunicación"],routes:["Fundamentos","Ejercicio","Proyecto","Reflexión"]},
+"Biotecnología":{desc:"Combina biología, tecnología y análisis para resolver problemas.",actions:["Investigar una aplicación","Analizar un proceso","Crear un mapa conceptual","Explorar bioinformática"],careers:["Biotecnología","Microbiología","Genética","Bioinformática"],skills:["Biología","Datos","Laboratorio","Pensamiento crítico"],routes:["Fundamentos","Simulación","Proyecto","Investigación"]},
+"Ciberseguridad":{desc:"Protege información y sistemas mediante análisis, prevención y buenas prácticas.",actions:["Aprender higiene digital","Mapear riesgos ficticios","Analizar una red de prueba","Crear una política básica"],careers:["Seguridad informática","Redes","GRC","Análisis de riesgos"],skills:["Lógica","Redes","Atención al detalle","Gestión de riesgos"],routes:["Fundamentos","Laboratorio seguro","Proyecto","Documentación"]},
+"Robótica y automatización":{desc:"Combina software, electrónica y control para automatizar tareas y sistemas.",actions:["Diseñar una secuencia","Simular un robot","Mapear un proceso","Crear una automatización sencilla"],careers:["Robótica","Automatización","Control","Mecatrónica"],skills:["Lógica","Electrónica","Programación","Prototipado"],routes:["Fundamentos","Simulación","Prototipo","Prueba"]},
+"Producto digital":{desc:"Investiga necesidades y crea productos digitales útiles y fáciles de usar.",actions:["Hacer entrevistas ficticias","Diseñar un flujo","Prototipar una pantalla","Priorizar funciones"],careers:["Product management","UX research","UX/UI","Producto"],skills:["Investigación","Priorización","Diseño","Comunicación"],routes:["Descubrimiento","Prototipo","Prueba de usuario","Portafolio"]},
+"Idiomas y traducción":{desc:"Desarrolla comunicación entre lenguas y culturas.",actions:["Traducir un texto breve","Crear una guía bilingüe","Practicar interpretación","Investigar diferencias culturales"],careers:["Traducción","Interpretación","Enseñanza de idiomas","Localización"],skills:["Lenguaje","Escucha","Escritura","Cultura"],routes:["Práctica","Proyecto bilingüe","Feedback","Portafolio"]},
+"Arquitectura y urbanismo":{desc:"Diseña espacios y soluciones para edificios, ciudades y comunidades.",actions:["Rediseñar un espacio","Hacer un plano conceptual","Analizar movilidad","Proponer un espacio público"],careers:["Arquitectura","Urbanismo","Paisajismo","Diseño de espacios"],skills:["Diseño","Dibujo","Análisis espacial","Presentación"],routes:["Fundamentos","Bocetos","Proyecto","Crítica"]},
+"Turismo y aviación":{desc:"Explora operación, destinos, hospitalidad y experiencias de viaje.",actions:["Diseñar un itinerario","Mapear una experiencia","Resolver un caso de servicio","Investigar un destino"],careers:["Turismo","Hospitalidad","Operaciones","Servicios de viaje"],skills:["Servicio","Organización","Idiomas","Resolución de problemas"],routes:["Fundamentos","Simulación","Proyecto","Presentación"]},
+"Automoción y movilidad":{desc:"Investiga vehículos, sistemas, mantenimiento y nuevas formas de movilidad.",actions:["Analizar un sistema","Mapear mantenimiento","Diseñar una mejora","Investigar movilidad sostenible"],careers:["Automoción","Mecánica","Movilidad","Mantenimiento"],skills:["Diagnóstico","Sistemas","Seguridad","Prototipado"],routes:["Fundamentos","Simulación","Práctica segura","Proyecto"]},
+"Periodismo y comunicación pública":{desc:"Investiga, verifica y comunica información de forma clara y responsable.",actions:["Preparar una entrevista","Investigar un tema","Escribir una nota","Comparar fuentes"],careers:["Periodismo","Comunicación pública","Investigación","Edición"],skills:["Escritura","Investigación","Entrevista","Verificación"],routes:["Fundamentos","Pieza periodística","Feedback","Portafolio"]}
+};
+const resources=[
+["🧠","Inteligencia emocional","Reconoce emociones y mejora tus relaciones.","Gratis"],
+["⏱️","Productividad y gestión del tiempo","Organiza tareas y trabaja con objetivos.","Gratis"],
+["🎤","Comunicación efectiva","Presenta ideas con claridad y confianza.","Gratis"],
+["🎨","Creatividad e innovación","Genera, prueba y mejora ideas.","PRO"],
+["💰","Finanzas personales","Presupuesto, ahorro y conceptos financieros básicos.","PRO"],
+["🚀","Cómo validar una idea","Convierte una idea en un pequeño experimento.","PREMIUM"],
+["🔎","Pensamiento crítico","Aprende a separar afirmaciones, evidencia y preguntas.","Gratis"],
+["🧩","Resolución de problemas","Descompón problemas y construye soluciones pequeñas.","Gratis"],
+["📊","Lectura de datos","Interpreta tablas, gráficos y métricas básicas.","PRO"],
+["🗣️","Hablar en público","Estructura una presentación y practica tu mensaje.","Gratis"],
+["📁","Portafolio profesional","Organiza proyectos y evidencias de aprendizaje.","PRO"],
+["🧭","Cómo investigar una carrera","Aprende a comparar tareas, formación y entorno de trabajo.","Gratis"]
+];
+const mentors=[["👩🏻","Laura Gómez","Orientación vocacional · Psicología"],["👨🏻","Diego Martínez","Ingeniería · Tecnología"],["👩🏽","Valentina Rojas","Diseño · Creatividad"],["👨🏽","Carlos Pérez","Emprendimiento · Negocios"]];
+const goalsDefault=["Completar el cuestionario","Explorar 3 áreas profesionales","Completar un recurso de aprendizaje","Crear un pequeño proyecto","Revisar mi plan y definir mi siguiente paso"];
+const ADMIN_KEY="8212";
+let currentUser=JSON.parse(localStorage.getItem("ikigaiGoCurrentUser")||"null");
+let state={answers:Array(30).fill(null),goals:Array(5).fill(false),plan:"Gratis",scores:null,top:null,activities:[]};
+function blankState(){return {answers:Array(30).fill(null),goals:Array(5).fill(false),plan:"Gratis",scores:null,top:null,activities:[],favorites:[],compareAreas:[],portfolio:[],diary:[],habits:[],exploreGoals:[],settings:{darkMode:false,largeText:false,compact:false,sound:true,confirm:true,autosave:true,reducedMotion:false,language:"es"}};}
+function stateKey(username){return "ikigaiGoState_"+String(username).toLowerCase();}
+function loadState(){state=currentUser?.username?JSON.parse(localStorage.getItem(stateKey(currentUser.username))||"null")||blankState():blankState();state.answers=Array.isArray(state.answers)?state.answers:Array(30).fill(null);state.goals=Array.isArray(state.goals)?state.goals:Array(5).fill(false);state.activities=Array.isArray(state.activities)?state.activities:[];state.settings=Object.assign({darkMode:false,largeText:false,compact:false,sound:true,confirm:true,autosave:true,reducedMotion:false,language:"es"},state.settings||{});}
+loadState();
+ensureExtras();
+applySettings();
+let q=state.answers.findIndex(x=>x===null);if(q<0)q=29;
+const scale=["1 — Totalmente en desacuerdo","2 — En desacuerdo","3 — Ni de acuerdo ni en desacuerdo","4 — De acuerdo","5 — Totalmente de acuerdo"];
+function save(){if(currentUser?.username){localStorage.setItem(stateKey(currentUser.username),JSON.stringify(state));}updateStats()}
+function toast(t){const x=document.getElementById("toast");x.textContent=t;x.classList.add("show");setTimeout(()=>x.classList.remove("show"),2200)}
+
+function applySettings(){
+  ensureExtras();
+  const st=state.settings||{};
+  document.body.classList.toggle("dark-mode",!!st.darkMode);
+  document.body.classList.toggle("large-text",!!st.largeText);
+  document.body.classList.toggle("compact-mode",!!st.compact);
+  document.body.classList.toggle("reduced-motion",!!st.reducedMotion);
+  ["Dark","Large","Compact","Sound","Confirm","Autosave","Motion"].forEach(()=>{});
+  const map={settingDark:"darkMode",settingLarge:"largeText",settingCompact:"compact",settingSound:"sound",settingConfirm:"confirm",settingAutosave:"autosave",settingMotion:"reducedMotion"};
+  Object.entries(map).forEach(([id,key])=>{const el=document.getElementById(id);if(el)el.classList.toggle("on",!!st[key])});
+  const lang=document.getElementById("settingLanguage");if(lang)lang.value=st.language||"es";
+}
+function toggleSetting(key){
+  ensureExtras();state.settings[key]=!state.settings[key];save();applySettings();
+  if(key==="sound"&&state.settings.sound)playUISound();
+  toast("Configuración actualizada ✓");
+}
+function setLanguage(value){ensureExtras();state.settings.language=value;save();if(value==="en")toast("La traducción completa estará disponible próximamente.");else toast("Idioma: Español")}
+function playUISound(){
+  if(!state.settings?.sound)return;
+  try{
+    const C=window.AudioContext||window.webkitAudioContext;if(!C)return;
+    const ctx=new C(),o=ctx.createOscillator(),g=ctx.createGain();
+    o.frequency.value=660;g.gain.setValueAtTime(.0001,ctx.currentTime);g.gain.exponentialRampToValueAtTime(.04,ctx.currentTime+.01);g.gain.exponentialRampToValueAtTime(.0001,ctx.currentTime+.12);o.connect(g);g.connect(ctx.destination);o.start();o.stop(ctx.currentTime+.13);
+  }catch(e){}
+}
+function exportUserData(){
+  const payload={account:currentUser,state:state,exportedAt:new Date().toISOString(),app:"Ikigai Go"};
+  const blob=new Blob([JSON.stringify(payload,null,2)],{type:"application/json"}),url=URL.createObjectURL(blob),a=document.createElement("a");
+  a.href=url;a.download="ikigai-go-mis-datos.json";a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);toast("Datos exportados ⬇️");
+}
+function showDataInfo(){showModal("🔐 Tus datos",`En esta versión local, el progreso de tu cuenta se guarda en el almacenamiento local de este navegador. Eso permite conservar cuestionario, favoritos, pruebas, diario y portafolio en este dispositivo.<br><br><b>Importante:</b> esto no sustituye un sistema de cuentas con servidor.`)}
+function restartTutorial(){localStorage.removeItem("ikigaiGoTutorialSeen");localStorage.removeItem("ikigaiGoTermsAccepted");location.reload()}
+function showHelpCenter(){showModal("❓ Centro de ayuda",`<b>Explorar:</b> busca áreas y abre pruebas.<br><b>Pruebas:</b> completa los pasos y registra una reflexión.<br><b>Plan:</b> sigue tus metas.<br><b>Portafolio:</b> guarda proyectos.<br><b>Diario:</b> registra descubrimientos.<br><b>Configuración:</b> personaliza la experiencia y exporta tus datos.`)}
+function showAccountSummary(){showModal("👤 Mi cuenta",`<b>Usuario:</b> ${escapeHTML(currentUser?.username||"—")}<br><b>Rol:</b> ${escapeHTML(currentUser?.role==="admin"?"Administrador":"Usuario")}<br><b>Progreso:</b> ${document.getElementById("statProgress")?.textContent||"0%"}`)}
+function resetProgress(){
+  ensureExtras();
+  const ok=state.settings.confirm?confirm("¿Reiniciar todo tu progreso de esta cuenta? Esta acción no se puede deshacer."):true;
+  if(!ok)return;
+  state=blankState();save();applySettings();updateStats();renderAreas();toast("Progreso reiniciado");
+}
+function deleteLocalAccount(){
+  const ok=state.settings.confirm?confirm("¿Eliminar los datos locales de esta cuenta? Se borrarán tus avances de este navegador."):true;
+  if(!ok)return;
+  if(currentUser?.username)localStorage.removeItem(stateKey(currentUser.username));
+  localStorage.removeItem("ikigaiGoCurrentUser");location.reload();
+}
+
+function showView(id){
+  const target=document.getElementById(id); if(!target)return;
+  document.querySelectorAll(".view").forEach(v=>v.classList.remove("active"));
+  target.classList.add("active");
+  document.querySelectorAll("nav button").forEach(b=>b.classList.remove("active"));
+  const n=document.getElementById("nav-"+id); if(n)n.classList.add("active");
+  window.scrollTo({top:0,behavior:"smooth"});
+  if(id==="plan"||id==="planos") { if(typeof renderPlan==="function")renderPlan(); }
+  if(id==="explorar")renderAreas();
+  if(id==="mentoria") { if(typeof renderMentors==="function")renderMentors(); }
+  if(id==="perfil")updateStats();
+  if(id==="admin")renderAdmin();
+  if(id==="herramientas")renderToolStats();
+  if(id==="comparador")renderCompare();
+  if(id==="biblioteca")renderLibrary();
+  if(id==="portafolio")renderPortfolio();
+  if(id==="diario")renderDiary();
+  if(id==="habitos")renderHabits();
+  updateStats();
+}
+function startQuiz(){let first=state.answers.findIndex(x=>x===null);q=first<0?0:first;showView("cuestionario");renderQ()}
+function renderQ(){const a=questions[q];document.getElementById("qTitle").textContent=a[0];document.getElementById("qDesc").textContent=`Dimensión: ${a[2]} · Responde según cómo sueles ser, no según cómo te gustaría ser.`;document.getElementById("qStep").textContent=`Pregunta ${q+1} de ${questions.length}`;let pct=Math.round((q+1)/30*100);document.getElementById("qPct").textContent=pct+"%";document.getElementById("qBar").style.width=pct+"%";document.getElementById("nextBtn").textContent=q===29?"Ver resultados →":"Siguiente →";document.getElementById("options").innerHTML=scale.map((s,i)=>`<button class="opt ${state.answers[q]===i+1?"sel":""}" onclick="answer(${i+1})"><span class="radio"></span><span>${s}</span></button>`).join("")}
+function answer(v){state.answers[q]=v;save();renderQ()}
+function nextQ(){if(!state.answers[q]){toast("Selecciona una respuesta antes de continuar.");return}if(q<29){q++;renderQ();window.scrollTo({top:0,behavior:"smooth"})}else finishQuiz()}
+function prevQ(){if(q>0){q--;renderQ()}else showView("inicio")}
+function finishQuiz(){const dims={Realista:0,Investigador:0,Artístico:0,Social:0,Emprendedor:0,Convencional:0};state.answers.forEach((v,i)=>{const d=questions[i][1];if(dims[d]!=null)dims[d]+=v});const sorted=Object.entries(dims).sort((a,b)=>b[1]-a[1]);state.scores=dims;state.top=sorted[0][0];state.goals[0]=true;save();renderResult(sorted);showView("resultado")}
+function renderResult(sorted=Object.entries(state.scores||{}).sort((a,b)=>b[1]-a[1])){const map={Realista:["🛠️","Práctico/a y orientado/a a la acción"],Investigador:["🔬","Analítico/a y curioso/a"],Artístico:["🎨","Creativo/a y expresivo/a"],Social:["🤝","Colaborativo/a y orientado/a a personas"],Emprendedor:["🚀","Iniciativo/a y orientado/a a proyectos"],Convencional:["📋","Organizado/a y atento/a al detalle"]};const m=map[state.top]||["🧭","Perfil en construcción"];document.getElementById("resultIcon").textContent=m[0];document.getElementById("resultTitle").textContent=m[1];document.getElementById("resultText").textContent=`Tu dimensión con mayor puntuación fue ${state.top}. El resultado sirve como punto de partida para explorar experiencias y opciones; no determina qué carrera debes elegir.`;document.getElementById("resultScores").innerHTML=sorted.map(([k,v])=>`<div class="card"><b>${map[k]?.[0]||"•"} ${k}</b><div class="progress" style="margin-top:12px"><div class="bar" style="width:${Math.round(v/30*100)}%"></div></div><p style="margin-top:7px">${v}/30 puntos</p></div>`).join("");const rel={Realista:["🏗️","Ingeniería y construcción"],Investigador:["🧪","Ciencias e investigación"],Artístico:["🎨","Arte y diseño"],Social:["🤝","Educación y personas"],Emprendedor:["💼","Negocios y emprendimiento"],Convencional:["📊","Finanzas y análisis"]};document.getElementById("resultAreas").innerHTML=sorted.slice(0,3).map(([k])=>`<div class="card resource"><div class="ico">${rel[k][0]}</div><div><h3>${rel[k][1]}</h3><p>Investiga cursos, tareas reales y experiencias introductorias relacionadas.</p></div></div>`).join("")}
+let areaFilter="all";
+function renderAreaFilters(){
+  const filters=[["all","Todas"],["tech","💻 Tecnología"],["art","🎨 Creatividad"],["science","🧪 Ciencia"],["people","🤝 Personas"],["business","💼 Negocios"]];
+  const box=document.getElementById("areaFilters"); if(!box)return;
+  box.innerHTML=filters.map(([k,l])=>`<button class="filterChip ${areaFilter===k?"active":""}" onclick="setAreaFilter('${k}')">${l}</button>`).join("");
+}
+function setAreaFilter(k){areaFilter=k;renderAreas()}
+function filterAreas(){renderAreas()}
+function renderAreas(){
+  renderAreaFilters();
+  const input=(document.getElementById("search")?.value||"").trim().toLowerCase();
+  const favorites=state.favorites||[];
+  const list=areas.filter(a=>{const text=(a[1]+" "+a[2]).toLowerCase();return (!input||text.includes(input))&&(areaFilter==="all"||a[3]===areaFilter)});
+  const grid=document.getElementById("areaGrid"); if(!grid)return;
+  const count=document.getElementById("areaCount");if(count)count.textContent=`${list.length} ${list.length===1?"opción":"opciones"}`;
+  grid.innerHTML=list.map(a=>{
+    const idx=areas.indexOf(a),name=a[1],d=areaData[name]||{};
+    const isFav=favorites.includes(name), selected=(state.compareAreas||[]).includes(name);
+    const tags=(d.skills||["Exploración","Práctica"]).slice(0,3);
+    const safe=name.replace(/'/g,"&#39;");
+    return `<article class="card areaCard"><div class="areaTop"><div class="areaIcon">${a[0]}</div><div style="flex:1"><h3>${escapeHTML(name)}</h3><p>${escapeHTML(a[2])}</p></div><button class="favBtn ${isFav?"on":""}" onclick="toggleFavorite('${safe}')" title="Favorito">${isFav?"★":"☆"}</button></div><div class="areaTags">${tags.map(t=>`<span class="areaTag">${escapeHTML(t)}</span>`).join("")}</div><div class="areaActions"><button class="btn soft" onclick="openAreaByIndex(${idx})">Explorar →</button><button class="btn outline" onclick="toggleCompare('${safe}')">${selected?"✓ Comparando":"⚖️ Comparar"}</button></div></article>`;
+  }).join("")||'<div class="card" style="grid-column:1/-1;text-align:center;padding:34px"><div style="font-size:34px">🔎</div><h3>No encontramos esa opción</h3><p>Prueba otra palabra o cambia el filtro.</p><button class="btn soft" onclick="clearAreaSearch()">Ver todas las áreas</button></div>';
+  updateCompareBar();
+}
+function clearAreaSearch(){const e=document.getElementById("search");if(e)e.value="";areaFilter="all";renderAreas()}
+
+function renderAreaDetail(name){
+  const d=areaData[name]||{desc:"Explora esta área y descubre qué actividades te interesan.",actions:["Investigar profesiones","Probar una actividad","Crear un pequeño proyecto"],careers:["Profesiones relacionadas"],skills:["Investigación"],routes:["Exploración inicial"]};
+  state.currentArea=name;
+  document.getElementById("areaTitle").textContent=name;
+  document.getElementById("areaSubtitle").textContent=d.desc;
+  const esc=typeof escapeHTML==="function"?escapeHTML:(x)=>String(x??"");
+  document.getElementById("areaActions").innerHTML=d.actions.map((x,i)=>`<div class="miniItem"><span style="font-size:22px">${["🧩","🛠️","📚","🔎"][i]||"•"}</span><div><b>${esc(x)}</b><span>Actividad orientativa para conocer mejor el área.</span></div></div>`).join("");
+  document.getElementById("areaCareers").innerHTML=d.careers.map(x=>`<div class="miniItem"><span style="font-size:20px">🎓</span><div><b>${esc(x)}</b><span>Investiga tareas, formación y entorno de trabajo antes de decidir.</span></div></div>`).join("");
+  document.getElementById("areaSkills").innerHTML=d.skills.map(x=>`<span class="chip">${esc(x)}</span>`).join("");
+  document.getElementById("areaRoutes").innerHTML=d.routes.map((x,i)=>`<div class="pathItem"><span class="pathNum">${i+1}</span><div><b>${esc(x)}</b><div style="font-size:12px;color:var(--muted);margin-top:3px">Paso sugerido para experimentar y aprender.</div></div></div>`).join("");
+  const f=(state.favorites||[]).includes(name); const b=document.getElementById("detailFav"); if(b){b.classList.toggle("on",f);b.textContent=f?"★":"☆";}
+}
+let activeExperience=null;
+let experienceTimerHandle=null;
+
+function tutorialSearchURL(name, action){
+  const q=encodeURIComponent(`tutorial ${name} ${action} principiantes`);
+  return `https://www.youtube.com/results?search_query=${q}`;
+}
+function tutorialBlock(name,action){
+  return `<div class="experienceTutorial">
+    <h4>📺 Mini tutorial antes de empezar</h4>
+    <p>Si es tu primera vez, mira una explicación corta antes de hacer la actividad. Se abre YouTube en otra pestaña.</p>
+    <a class="tutorialLink" href="${tutorialSearchURL(name,action)}" target="_blank" rel="noopener noreferrer">▶️ Buscar tutorial en YouTube</a>
+  </div>`;
+}
+function buildExperience(name,type){
+  const d=areaData[name]||{};
+  const actions=d.actions||["Investigar una profesión","Resolver una tarea pequeña","Crear un mini proyecto"];
+  const careers=d.careers||["Profesión relacionada"];
+  const skills=d.skills||["Investigación","Resolución de problemas"];
+  const commonReflection=`<div class="field"><label>¿Qué descubriste sobre ti?</label><textarea id="expReflection" placeholder="Descubrí que..."></textarea></div>`;
+  if(type==="practice"){
+    return {
+      type:"PRUEBA PRÁCTICA",
+      title:"Prueba práctica: "+name,
+      subtitle:"Tutorial + preparación + actividad + reflexión.",
+      minutes:25,
+      steps:[
+        {title:"1. Aprende primero",html:`${tutorialBlock(name,actions[0])}<div class="experienceTask"><h3>🎯 Objetivo</h3><p>Antes de practicar, entiende qué vas a hacer: <b>${escapeHTML(actions[0])}</b>.</p><p style="margin-top:8px">No necesitas experiencia previa. Observa el tutorial y después vuelve a esta ventana.</p></div>`,button:"Ya vi el tutorial →"},
+        {title:"2. Prepara tu actividad",html:`<div class="experienceTask"><h3>🧰 Preparación</h3><p>Necesitarás una herramienta o material sencillo. Para esta prueba puedes usar un editor gratuito, papel, notas o cualquier herramienta que ya tengas.</p><p style="margin-top:8px"><b>Tu resultado puede ser:</b> un boceto, página, texto, esquema, análisis, prototipo o captura.</p></div><div class="notice">💡 No busques perfección. La meta es experimentar el tipo de tarea.</div>`,button:"Preparado →"},
+        {title:"3. Haz la actividad",html:`<div class="experienceTask"><h3>🛠️ Tu misión</h3><p>Realiza una versión pequeña de: <b>${escapeHTML(actions[0])}</b>.</p><p style="margin-top:8px">Después intenta también: <b>${escapeHTML(actions[1]||actions[0])}</b>.</p></div><div class="field"><label>¿Qué hiciste?</label><textarea id="expAnswer" placeholder="Describe tu resultado y, si puedes, añade qué herramienta utilizaste..."></textarea></div>`,button:"Terminé la actividad →"},
+        {title:"4. Evalúa la experiencia",html:`<div class="experienceTask"><h3>🔎 Lo que practicaste</h3><p>Esta área puede involucrar: <b>${escapeHTML(skills.slice(0,4).join(", "))}</b>.</p><div class="experienceChoices"><button class="experienceChoice" onclick="selectExperienceChoice(this,'Me gustó mucho')">😊 Me gustó mucho</button><button class="experienceChoice" onclick="selectExperienceChoice(this,'Me gustó algo')">🙂 Me gustó algo</button><button class="experienceChoice" onclick="selectExperienceChoice(this,'No me gustó')">😐 No me gustó</button></div></div>${commonReflection}`,button:"Finalizar prueba ✓"}
+      ]
+    };
+  }
+  return {
+    type:"SIMULACIÓN PROFESIONAL",
+    title:"Simulación: "+name,
+    subtitle:"Tutorial + caso + decisiones + entrega.",
+    minutes:20,
+    steps:[
+      {title:"1. Conoce el contexto",html:`${tutorialBlock(name,actions[0])}<div class="experienceTask"><h3>📋 Situación</h3><p>Imagina que estás comenzando en <b>${escapeHTML(name)}</b>. Tu primer encargo es: <b>${escapeHTML(actions[0])}</b>.</p></div>`,button:"Entendido →"},
+      {title:"2. Analiza el problema",html:`<div class="experienceTask"><h3>🔎 Antes de actuar</h3><p>¿Qué información necesitarías para realizar la tarea? Piensa en usuario, objetivo, restricciones y resultado esperado.</p></div><div class="field"><label>¿Qué investigarías primero?</label><textarea id="expAnswer" placeholder="Primero investigaría..."></textarea></div>`,button:"Continuar →"},
+      {title:"3. Toma decisiones",html:`<div class="experienceTask"><h3>🧩 Elige tu enfoque</h3><div class="experienceChoices"><button class="experienceChoice" onclick="selectExperienceChoice(this,'Investigar primero')">🔎 Investigar primero</button><button class="experienceChoice" onclick="selectExperienceChoice(this,'Prototipar primero')">🛠️ Prototipar primero</button><button class="experienceChoice" onclick="selectExperienceChoice(this,'Hablar con personas primero')">🗣️ Hablar con personas primero</button></div></div>`,button:"Elegir enfoque →"},
+      {title:"4. Entrega",html:`<div class="experienceTask"><h3>📤 Entrega profesional</h3><p>Describe qué entregarías y cómo comprobarías que funcionó.</p></div><div class="field"><label>Mi propuesta</label><textarea id="expReflection" placeholder="Entregaría... y comprobaría el resultado mediante..."></textarea></div>`,button:"Completar simulación ✓"}
+    ]
+  };
+}
+
+function startAreaPractice(){
+  const n=state.currentArea||"esta área";
+  activeExperience=buildExperience(n,"practice");
+  state.activities=Array.isArray(state.activities)?state.activities:[];
+  state.activities.push("Inició prueba práctica: "+n);
+  state.goals[1]=true;
+  save();
+  openExperience(0);
+}
+
+function openCareerSimulator(){
+  const n=state.currentArea||"esta área";
+  activeExperience=buildExperience(n,"simulation");
+  state.activities=Array.isArray(state.activities)?state.activities:[];
+  state.activities.push("Inició simulación: "+n);
+  save();
+  openExperience(0);
+}
+
+function openExperience(step){
+  if(!activeExperience)return;
+  clearInterval(experienceTimerHandle);
+  const total=activeExperience.steps.length;
+  const current=activeExperience.steps[Math.max(0,Math.min(step,total-1))];
+  activeExperience.step=step;
+  activeExperience.answers=activeExperience.answers||{};
+  if(currentUser?.username){state.activeExperience=activeExperience;save();}
+  document.getElementById("experienceType").textContent=activeExperience.type;
+  document.getElementById("experienceTitle").textContent=activeExperience.title;
+  document.getElementById("experienceSubtitle").textContent=activeExperience.subtitle;
+  document.getElementById("experienceContent").innerHTML=`<h3>${current.title}</h3>${current.html}<div style="display:flex;justify-content:flex-end;margin-top:15px"><button class="btn primary" onclick="nextExperienceStep()">${current.button}</button></div>`;
+  document.getElementById("experienceProgress").innerHTML=activeExperience.steps.map((x,i)=>`<span class="${i<=step?"on":""}"></span>`).join("");
+  const badge=document.getElementById("experienceTimer");
+  let seconds=(activeExperience.minutes||20)*60;
+  badge.textContent=formatTimer(seconds);
+  experienceTimerHandle=setInterval(()=>{seconds--;badge.textContent=formatTimer(Math.max(0,seconds));if(seconds<=0)clearInterval(experienceTimerHandle)},1000);
+  const modal=document.getElementById("experienceModal");modal.classList.add("show");modal.setAttribute("aria-hidden","false");
+}
+window.addEventListener("beforeunload",e=>{if(activeExperience){e.preventDefault();e.returnValue="La prueba está en curso. Si cierras esta página podrías perder el progreso.";return e.returnValue;}});
+function formatTimer(sec){return `${String(Math.floor(sec/60)).padStart(2,"0")}:${String(sec%60).padStart(2,"0")}`}
+function selectExperienceChoice(btn,value){
+  document.querySelectorAll("#experienceContent .experienceChoice").forEach(x=>x.classList.remove("selected"));
+  btn.classList.add("selected");activeExperience.answers=activeExperience.answers||{};activeExperience.answers.choice=value;
+}
+function nextExperienceStep(){
+  if(!activeExperience)return;
+  const answer=document.getElementById("expAnswer"),reflection=document.getElementById("expReflection");
+  if(answer&&answer.value.trim())activeExperience.answers.answer=answer.value.trim();
+  if(reflection&&reflection.value.trim())activeExperience.answers.reflection=reflection.value.trim();
+  if(activeExperience.step<activeExperience.steps.length-1){openExperience(activeExperience.step+1);return}
+  finishExperience();
+}
+function finishExperience(){
+  if(!activeExperience)return;
+  const n=state.currentArea||"esta área";
+  const kind=activeExperience.type==="PRUEBA PRÁCTICA"?"Prueba práctica completada: ":"Simulación completada: ";
+  state.activities=Array.isArray(state.activities)?state.activities:[];
+  state.activities.push(kind+n);
+  state.goals[1]=true;
+  state.activeExperience=null;
+  save();
+  clearInterval(experienceTimerHandle);
+  closeExperience();
+  showModal("🎉 Experiencia completada",`Terminaste tu experiencia de <b>${escapeHTML(n)}</b>.<br><br>Tu actividad quedó registrada en tu progreso. Ahora puedes guardar una reflexión en tu diario o añadir un proyecto al portafolio.`);
+}
+function closeExperience(force=false){
+  if(activeExperience&&!force){
+    const ok=state.settings?.confirm!==false?confirm("Esta prueba está en curso. Si cierras la ventana podrías perder el progreso actual. ¿Seguro que quieres salir?"):true;
+    if(!ok)return;
+  }
+  clearInterval(experienceTimerHandle);
+  const m=document.getElementById("experienceModal");
+  if(m){m.classList.remove("show");m.setAttribute("aria-hidden","true")}
+  if(currentUser?.username&&activeExperience){state.activeExperience=activeExperience;save();}
+  activeExperience=null;
+}
+function showModal(title,text){
+  const m=document.getElementById("modal");if(!m)return;
+  document.getElementById("modalTitle").textContent=title;
+  document.getElementById("modalText").innerHTML=text;
+  document.getElementById("modalActions").innerHTML='<button class="btn soft" onclick="closeModal();showView(\'diario\')">📔 Escribir reflexión</button><button class="btn primary" onclick="closeModal();showView(\'portafolio\')">📁 Crear proyecto</button>';
+  m.classList.add("show");m.setAttribute("aria-hidden","false");
+}
+function closeModal(){const m=document.getElementById("modal");if(m){m.classList.remove("show");m.setAttribute("aria-hidden","true")}}
+
+function renderSkill(stage=0){
+ const title=state.currentSkill||"Habilidad";
+ document.getElementById("skillTitle").textContent="🛠️ "+title;
+ document.getElementById("skillSubtitle").textContent="Completa tres pasos y guarda tu avance.";
+ ["skillS1","skillS2","skillS3"].forEach((id,i)=>document.getElementById(id).classList.toggle("on",i<=stage));
+ const box=document.getElementById("skillStage");
+ if(stage===0) box.innerHTML=`<h2>1. Define tu práctica</h2><p>Escribe qué quieres aprender y cuál será el resultado.</p><div class="field"><label>Resultado que quiero crear</label><input id="skillGoal" placeholder="Ej. una página para un negocio ficticio"></div><button class="btn primary" onclick="renderSkill(1)">Continuar →</button>`;
+ if(stage===1) box.innerHTML=`<h2>2. Haz la práctica</h2><p>Trabaja en una versión pequeña. No necesitas que sea perfecta.</p><div class="notice">Consejo: limita la práctica a 30–60 minutos y guarda una evidencia.</div><div class="field"><label>¿Qué aprendiste?</label><textarea id="skillLearn" placeholder="Escribe 2 o 3 cosas que aprendiste..."></textarea></div><button class="btn primary" onclick="renderSkill(2)">Guardar aprendizaje →</button>`;
+ if(stage===2) box.innerHTML=`<h2>3. Convierte el resultado en portafolio</h2><p>Guarda una descripción de lo que hiciste y qué problema resolviste.</p><div class="field"><label>Descripción del proyecto</label><textarea id="skillPortfolio" placeholder="Qué hiciste, qué herramientas usaste y qué mejorarías..."></textarea></div><button class="btn primary" onclick="finishSkill()">Guardar en mi recorrido ✓</button>`;
+}
+function finishSkill(){state.goals[2]=true;state.activities.push("Portafolio: "+(state.currentSkill||"habilidad"));save();showModal("Proyecto guardado","Tu práctica quedó registrada y la meta de aprendizaje fue marcada. Puedes continuar con otra habilidad o abrir tu plan.");}
+
+const challengeData={
+"Reto de solución digital":{brief:"Una pequeña empresa necesita organizar mejor sus clientes y tareas.",mission:["Define el problema principal.","Propón una herramienta sencilla.","Explica cómo se usaría y qué mejora produciría."],criteria:["Claridad del problema","Viabilidad de la solución","Explicación de la experiencia","Capacidad de justificar decisiones"]},
+"Reto de campaña creativa":{brief:"Un emprendimiento ficticio necesita dar a conocer un producto a jóvenes.",mission:["Define a quién quieres llegar.","Crea un concepto de campaña.","Propón dos piezas de contenido y explica el mensaje."],criteria:["Comprensión de la audiencia","Creatividad","Claridad del mensaje","Coherencia entre piezas"]},
+"Reto de impacto sostenible":{brief:"Una organización quiere reducir desperdicios sin aumentar demasiado sus costos.",mission:["Identifica una fuente de desperdicio.","Propón una mejora concreta.","Explica cómo medirías si funcionó."],criteria:["Problema bien definido","Impacto esperado","Medición","Viabilidad"]}
+};
+function renderChallenge(x){
+ const d=challengeData[x]||challengeData["Reto de solución digital"];
+ document.getElementById("challengeTitle").textContent="⭐ "+x;
+ document.getElementById("challengeBrief").textContent=d.brief;
+ document.getElementById("challengeMission").innerHTML=d.mission.map((m,i)=>`<div class="miniItem"><b>${i+1}</b><div>${m}</div></div>`).join("");
+ document.getElementById("challengeCriteria").innerHTML=d.criteria.map(m=>`<div class="miniItem"><span>✓</span><div>${m}</div></div>`).join("");
+ document.getElementById("challengeStatus").innerHTML="";
+}
+function submitChallenge(){
+ const name=document.getElementById("challengeName").value.trim(), sol=document.getElementById("challengeSolution").value.trim();
+ if(!name||!sol){toast("Completa al menos el nombre y la solución.");return}
+ state.goals[3]=true;state.activities.push("Entrega: "+(state.currentChallenge||"Reto"));save();
+ document.getElementById("challengeStatus").innerHTML='<div class="status">✓ Reto guardado en tu recorrido. Puedes volver a Mentoría o continuar con otra experiencia.</div>';
+ toast("Reto guardado ✓");
+}
+
+function renderMentorDetail(i){
+ const m=mentors[i]||mentors[0];
+ document.getElementById("mentorDetail").innerHTML=`<div class="detailGrid"><div class="card"><div class="resource"><div class="face" style="width:65px;height:65px;font-size:30px">${m[0]}</div><div><h2 style="margin:0">${m[1]}</h2><p>${m[2]}</p></div></div><div class="notice">Perfil de demostración. La app no representa una red real de profesionales hasta conectar un backend y verificar identidades.</div><h3>¿Qué puedes preguntar?</h3><div class="miniList"><div class="miniItem"><span>🎓</span><div><b>Formación</b><span>¿Qué estudiaste y qué te ayudó realmente?</span></div></div><div class="miniItem"><span>💼</span><div><b>Trabajo</b><span>¿Qué haces en un día normal?</span></div></div><div class="miniItem"><span>🧭</span><div><b>Decisión</b><span>¿Qué te habría gustado saber antes?</span></div></div></div></div><div class="card"><h2>Solicitar conversación</h2><div class="field"><label>Tu nombre</label><input id="mentorName" placeholder="Escribe tu nombre"></div><div class="field"><label>¿Qué quieres aprender?</label><textarea id="mentorQuestion" placeholder="Ej. Quiero saber cómo es trabajar en tecnología..."></textarea></div><button class="btn primary" onclick="requestMentor()">Enviar solicitud</button><div id="mentorStatus" style="margin-top:12px"></div></div></div>`;
+}
+function requestMentor(){
+ if(!document.getElementById("mentorName").value.trim()||!document.getElementById("mentorQuestion").value.trim()){toast("Completa tu nombre y pregunta.");return}
+ state.goals[4]=true;state.activities.push("Solicitud de mentoría");save();
+ document.getElementById("mentorStatus").innerHTML='<div class="status">✓ Solicitud guardada. En una versión conectada, aquí aparecerían disponibilidad, calendario y videollamada.</div>';
+}
+
+let bizData={idea:"",problem:"",client:"",solution:""};
+function renderBiz(stage){
+ ["biz1","biz2","biz3","biz4"].forEach((id,i)=>document.getElementById(id).classList.toggle("on",i<=stage));
+ const b=document.getElementById("bizStage");
+ if(stage===0)b.innerHTML=`<h2>1. Elige una idea</h2><p>Piensa en algo que puedas hacer con una habilidad que ya tengas o quieras aprender.</p><div class="field"><label>Mi idea</label><textarea id="bizIdea" placeholder="Ej. ayudar a negocios pequeños a crear contenido..."></textarea></div><button class="btn primary" onclick="bizData.idea=document.getElementById('bizIdea').value.trim();renderBiz(1)">Siguiente →</button>`;
+ if(stage===1)b.innerHTML=`<h2>2. Encuentra el problema</h2><p>Una buena idea empieza por una necesidad concreta.</p><div class="field"><label>¿Qué problema resuelves?</label><textarea id="bizProblem" placeholder="¿Qué le cuesta o necesita la persona?"></textarea></div><div class="field"><label>¿Quién lo tiene?</label><input id="bizClient" placeholder="Ej. pequeños emprendimientos"></div><button class="btn primary" onclick="bizData.problem=document.getElementById('bizProblem').value.trim();bizData.client=document.getElementById('bizClient').value.trim();renderBiz(2)">Siguiente →</button>`;
+ if(stage===2)b.innerHTML=`<h2>3. Diseña la solución</h2><p>Describe una solución pequeña que puedas probar.</p><div class="field"><label>Mi solución</label><textarea id="bizSolution" placeholder="Qué ofreces, cómo funciona y qué entregas..."></textarea></div><button class="btn primary" onclick="bizData.solution=document.getElementById('bizSolution').value.trim();renderBiz(3)">Preparar prueba →</button>`;
+ if(stage===3)b.innerHTML=`<h2>4. Primera prueba</h2><p>Define una prueba sencilla antes de intentar vender a gran escala.</p><div class="notice"><b>Idea:</b> ${bizData.idea||"—"}<br><b>Problema:</b> ${bizData.problem||"—"}<br><b>Cliente:</b> ${bizData.client||"—"}<br><b>Solución:</b> ${bizData.solution||"—"}</div><button class="btn primary" onclick="finishBiz()">Guardar mi experimento ✓</button>`;
+}
+function finishBiz(){state.goals[3]=true;state.activities.push("Experimento de emprendimiento");save();showModal("Experimento guardado","Tu idea quedó registrada. El siguiente paso es probarla con una persona real de forma segura, pedir feedback y mejorarla.");}
+
+
+function updateStats(){const answered=state.answers.filter(Boolean).length,p=Math.round(answered/30*70+state.goals.filter(Boolean).length/5*30);const set=(id,v)=>{const e=document.getElementById(id);if(e)e.textContent=v};set("statProgress",p+"%");set("statQuiz",`${answered}/30`);set("statGoals",`${state.goals.filter(Boolean).length}/5`);set("statPlan",state.plan);const bar=document.getElementById("profileBar");if(bar)bar.style.width=p+"%";const ps=document.getElementById("profileSummary");if(ps)ps.textContent=state.top?`Perfil principal: ${state.top}. Progreso general: ${p}%.`:"Completa el cuestionario para construir tu perfil."}
+
+let tutorialIndex=0;
+function gateShow(id){document.querySelectorAll(".gateScreen").forEach(x=>x.classList.remove("active"));document.getElementById(id).classList.add("active");}
+function acceptTerms(){
+  if(!document.getElementById("termsCheck").checked){showAuthError("Debes aceptar los términos y condiciones para continuar.");return}
+  localStorage.setItem("ikigaiGoTermsAccepted","1");tutorialIndex=0;gateShow("gateTutorial");renderTutorial();
+}
+function renderTutorial(){
+  const slides=document.querySelectorAll(".tutorialSlide"),dots=document.querySelectorAll(".tutorialDot");
+  slides.forEach((x,i)=>x.classList.toggle("active",i===tutorialIndex));dots.forEach((x,i)=>x.classList.toggle("on",i===tutorialIndex));
+  document.getElementById("tutorialBack").disabled=tutorialIndex===0;
+  document.getElementById("tutorialNext").textContent=tutorialIndex===slides.length-1?"Ir a iniciar sesión →":"Siguiente →";
+}
+function tutorialNext(){
+  const total=document.querySelectorAll(".tutorialSlide").length;
+  if(tutorialIndex<total-1){tutorialIndex++;renderTutorial();}else{localStorage.setItem("ikigaiGoTutorialSeen","1");gateShow("gateAuth");}
+}
+function tutorialPrev(){if(tutorialIndex>0){tutorialIndex--;renderTutorial();}else gateShow("gateTerms")}
+function switchAuth(type){
+  document.querySelectorAll(".authTab").forEach((x,i)=>x.classList.toggle("active",["login","register","admin"][i]===type));
+  document.querySelectorAll(".authForm").forEach(x=>x.classList.remove("active"));
+  document.getElementById(type==="login"?"loginForm":type==="register"?"registerForm":"adminForm").classList.add("active");
+  clearAuthError();
+}
+function showAuthError(t){const e=document.getElementById("authError");e.textContent=t;e.classList.add("show")}
+function clearAuthError(){document.getElementById("authError").classList.remove("show")}
+function getUsers(){return JSON.parse(localStorage.getItem("ikigaiGoUsers")||"[]")}
+function setUsers(users){localStorage.setItem("ikigaiGoUsers",JSON.stringify(users))}
+function normalize(s){return String(s||"").trim().toLowerCase()}
+function registerUser(){
+  clearAuthError();
+  const username=document.getElementById("regUsername").value.trim(),phone=document.getElementById("regPhone").value.trim(),email=normalize(document.getElementById("regEmail").value),pw=document.getElementById("regPassword").value,pw2=document.getElementById("regPassword2").value;
+  if(!username||!phone||!email||!pw||!pw2){showAuthError("Completa todos los campos.");return}
+  if(username.length<3){showAuthError("El usuario debe tener al menos 3 caracteres.");return}
+  if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){showAuthError("Introduce un correo válido.");return}
+  if(pw.length<6){showAuthError("La contraseña debe tener al menos 6 caracteres.");return}
+  if(pw!==pw2){showAuthError("Las contraseñas no coinciden.");return}
+  const users=getUsers();
+  if(users.some(u=>normalize(u.username)===normalize(username))){showAuthError("Ese usuario ya existe.");return}
+  if(users.some(u=>normalize(u.email)===email)){showAuthError("Ese correo ya está registrado.");return}
+  if(users.some(u=>normalize(u.phone)===normalize(phone))){showAuthError("Ese número ya está registrado.");return}
+  users.push({username,phone,email,password:pw,createdAt:new Date().toISOString()});setUsers(users);
+  currentUser={username,email,phone,role:"user"};localStorage.setItem("ikigaiGoCurrentUser",JSON.stringify(currentUser));loadState();enterApp();toast("Cuenta creada correctamente ✓");
+}
+function loginUser(){
+  clearAuthError();const id=normalize(document.getElementById("loginIdentifier").value),pw=document.getElementById("loginPassword").value;
+  const u=getUsers().find(x=>(normalize(x.username)===id||normalize(x.email)===id||normalize(x.phone)===id)&&x.password===pw);
+  if(!u){showAuthError("Datos incorrectos. Comprueba usuario/correo/teléfono y contraseña.");return}
+  currentUser={username:u.username,email:u.email,phone:u.phone,role:"user"};localStorage.setItem("ikigaiGoCurrentUser",JSON.stringify(currentUser));loadState();enterApp();toast("Bienvenido/a, "+u.username+" ✓");
+}
+function loginAdmin(){
+  clearAuthError();if(document.getElementById("adminKey").value!==ADMIN_KEY){showAuthError("Clave de administrador incorrecta.");return}
+  currentUser={username:"Administrador",role:"admin"};localStorage.setItem("ikigaiGoCurrentUser",JSON.stringify(currentUser));state=blankState();enterApp();showView("admin");renderAdmin();toast("Sesión de administrador iniciada ✓");
+}
+function enterApp(){
+  document.getElementById("authGate").classList.add("hidden");
+  document.querySelector(".app").style.display="block";
+  document.querySelector(".app").classList.toggle("admin-mode",currentUser?.role==="admin");
+  document.getElementById("headerUser").textContent=currentUser.username;
+  document.getElementById("headerRole").textContent=currentUser.role==="admin"?"Administrador":"Cuenta personal";
+  document.getElementById("headerAvatar").textContent=(currentUser.username||"U").charAt(0).toUpperCase();
+  document.getElementById("nav-admin").style.display=currentUser.role==="admin"?"block":"none";
+  if(state.scores)renderResult();
+  renderAreas();
+  applySettings();
+  if(typeof renderPlan==="function")renderPlan();
+  if(typeof renderMentors==="function")renderMentors();
+  updateStats();
+}
+function logout(){
+  currentUser=null;localStorage.removeItem("ikigaiGoCurrentUser");state=blankState();
+  document.querySelector(".app").classList.remove("admin-mode");
+  document.getElementById("authGate").classList.remove("hidden");document.querySelector(".app").style.display="block";
+  switchAuth("login");document.getElementById("loginIdentifier").value="";document.getElementById("loginPassword").value="";
+  const accepted=localStorage.getItem("ikigaiGoTermsAccepted")==="1",seen=localStorage.getItem("ikigaiGoTutorialSeen")==="1";
+  if(!accepted){document.getElementById("termsCheck").checked=false;gateShow("gateTerms");}
+  else if(!seen){tutorialIndex=0;gateShow("gateTutorial");renderTutorial();}
+  else gateShow("gateAuth");
+}
+function renderAdmin(){
+  if(currentUser?.role!=="admin")return;
+  const users=getUsers(),completed=users.filter(u=>{const st=JSON.parse(localStorage.getItem(stateKey(u.username))||"null");return st?.scores}).length,plans=users.filter(u=>{const st=JSON.parse(localStorage.getItem(stateKey(u.username))||"null");return st?.plan&&st.plan!=="Gratis"}).length;
+  document.getElementById("adminUsers").textContent=users.length;document.getElementById("adminActive").textContent=1;document.getElementById("adminCompleted").textContent=completed;document.getElementById("adminPlans").textContent=plans;
+  document.getElementById("adminUserRows").innerHTML=users.map(u=>{const st=JSON.parse(localStorage.getItem(stateKey(u.username))||"null")||blankState();return `<tr><td><b>${escapeHTML(u.username)}</b></td><td>${escapeHTML(u.email)}</td><td>${escapeHTML(u.phone)}</td><td>${escapeHTML(st.plan||"Gratis")}</td><td>${st.answers?.filter(Boolean).length||0}/30</td></tr>`}).join("")||'<tr><td colspan="5">Todavía no hay usuarios registrados.</td></tr>';
+  const checks=[["App base",!!document.querySelector(".app")],["Navegación",document.querySelectorAll("nav button").length>=5],["Mentoría",!!document.getElementById("mentors")],["Explorar",!!document.getElementById("areaGrid")],["Herramientas",!!document.getElementById("herramientas")],["Comparador",!!document.getElementById("comparador")],["Autenticación",!!document.getElementById("loginForm")],["Panel admin",!!document.getElementById("admin")]];
+  document.getElementById("diagnosticBox").innerHTML=checks.map(c=>`${c[1]?"✓":"✗"} ${c[0]}`).join("<br>");
+}
+function escapeHTML(v){return String(v??"").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[m]))}
+
+if(!currentUser){
+  document.querySelector(".app").classList.remove("admin-mode");
+  document.querySelector(".app").style.display="block";
+  const accepted=localStorage.getItem("ikigaiGoTermsAccepted")==="1",seen=localStorage.getItem("ikigaiGoTutorialSeen")==="1";
+  if(accepted&&seen)gateShow("gateAuth");else if(accepted){tutorialIndex=0;gateShow("gateTutorial");renderTutorial();}else gateShow("gateTerms");
+}else enterApp();
+
+
+
+/* ===== V6 functional features ===== */
+function ensureExtras(){
+  state.favorites=Array.isArray(state.favorites)?state.favorites:[];
+  state.compareAreas=Array.isArray(state.compareAreas)?state.compareAreas:[];
+  state.portfolio=Array.isArray(state.portfolio)?state.portfolio:[];
+  state.diary=Array.isArray(state.diary)?state.diary:[];
+  state.habits=Array.isArray(state.habits)?state.habits:[];
+  state.exploreGoals=Array.isArray(state.exploreGoals)?state.exploreGoals:[];
+}
+ensureExtras();
+
+function toggleFavorite(name){
+  ensureExtras();
+  const i=state.favorites.indexOf(name);
+  if(i>=0){state.favorites.splice(i,1);toast("Quitada de favoritos");}
+  else{state.favorites.push(name);toast("Añadida a favoritos ⭐");}
+  save();renderAreas();
+}
+function toggleCurrentFavorite(){if(state.currentArea)toggleFavorite(state.currentArea);renderAreaDetail(state.currentArea)}
+function showFavorites(){
+  ensureExtras();showView("explorar");
+  const input=document.getElementById("search");if(input)input.value="";
+  const grid=document.getElementById("areaGrid"), fav=state.favorites;
+  if(!fav.length){grid.innerHTML='<div class="card" style="grid-column:1/-1;text-align:center;padding:35px"><div style="font-size:34px">⭐</div><h3>Aún no tienes favoritos</h3><p>Guarda áreas con la estrella y aparecerán aquí.</p></div>';document.getElementById("areaCount").textContent="0 favoritas";return}
+  areaFilter="all";renderAreaFilters();
+  const old=areas.filter(a=>fav.includes(a[1]));
+  document.getElementById("areaCount").textContent=`${old.length} favoritas`;
+  grid.innerHTML=old.map(a=>{const idx=areas.indexOf(a),d=areaData[a[1]]||{};return `<article class="card areaCard"><div class="areaTop"><div class="areaIcon">${a[0]}</div><div style="flex:1"><h3>${escapeHTML(a[1])}</h3><p>${escapeHTML(a[2])}</p></div><button class="favBtn on" onclick="toggleFavorite('${escapeHTML(a[1]).replace(/'/g,"&#39;")}')">★</button></div><div class="areaTags">${(d.skills||[]).slice(0,3).map(x=>`<span class="areaTag">${escapeHTML(x)}</span>`).join("")}</div><div class="areaActions"><button class="btn soft" onclick="openAreaByIndex(${idx})">Abrir →</button><button class="btn outline" onclick="toggleCompare('${escapeHTML(a[1]).replace(/'/g,"&#39;")}')">⚖️ Comparar</button></div></article>`}).join("");
+  updateCompareBar();
+}
+function toggleCompare(name){
+  ensureExtras(); const i=state.compareAreas.indexOf(name);
+  if(i>=0){state.compareAreas.splice(i,1);toast("Quitada del comparador");}
+  else if(state.compareAreas.length>=2){toast("El comparador admite 2 áreas.");return}
+  else{state.compareAreas.push(name);toast("Añadida al comparador ⚖️");}
+  save();renderAreas();updateCompareBar();
+}
+function clearCompare(){state.compareAreas=[];save();renderAreas();updateCompareBar()}
+function updateCompareBar(){
+  const bar=document.getElementById("compareBar");if(!bar)return;
+  const arr=state.compareAreas||[];bar.classList.toggle("show",arr.length>0);
+  document.getElementById("compareCount").textContent=`${arr.length} seleccionada${arr.length===1?"":"s"}`;
+  document.getElementById("comparePills").innerHTML=arr.map(x=>`<span class="comparePill">${escapeHTML(x)}</span>`).join("");
+}
+function showCompare(){showView("comparador")}
+function showCompareCurrent(){if(state.currentArea)toggleCompare(state.currentArea);showCompare()}
+function renderCompare(){
+  const box=document.getElementById("compareContent");if(!box)return;
+  const arr=state.compareAreas||[];
+  if(arr.length<2){box.innerHTML='<div class="card" style="text-align:center;padding:35px"><div style="font-size:35px">⚖️</div><h2>Selecciona dos áreas</h2><p>Vuelve a Explorar y pulsa “Comparar” en dos opciones.</p><button class="btn primary" onclick="showView(\'explorar\')">Elegir áreas →</button></div>';return}
+  const cards=arr.map(name=>{const a=areas.find(x=>x[1]===name),d=areaData[name]||{};return `<div class="card"><div class="areaTop"><div class="areaIcon">${a?.[0]||"🧭"}</div><div><h2 style="margin:0">${escapeHTML(name)}</h2><p>${escapeHTML(d.desc||a?.[2]||"")}</p></div></div><div class="compareMetric"><b>Tareas para probar</b><span>${(d.actions||[]).length}</span></div><div class="compareMetric"><b>Perfiles relacionados</b><span>${(d.careers||[]).length}</span></div><div class="compareMetric"><b>Habilidades</b><span>${(d.skills||[]).length}</span></div><div class="compareMetric"><b>Primer paso</b><span>${escapeHTML(d.routes?.[0]||"Explorar")}</span></div><button class="btn soft" style="margin-top:12px" onclick="openAreaByName('${escapeHTML(name).replace(/'/g,"&#39;")}')">Abrir área →</button></div>`}).join("");
+  box.innerHTML=`<div class="compareGrid">${cards}</div><div class="notice" style="margin-top:15px">El comparador muestra información descriptiva para investigar; no determina cuál opción debes elegir.</div>`;
+}
+function saveAreaGoal(){
+  ensureExtras();const n=state.currentArea;if(!n)return;
+  if(!state.exploreGoals.includes(n))state.exploreGoals.push(n);
+  state.goals[1]=true;state.activities.push("Área añadida a mi ruta: "+n);save();const box=document.getElementById("areaGoalStatus");if(box){box.style.display="block";box.innerHTML=`🎯 <b>${escapeHTML(n)}</b> fue añadida a tu ruta. Puedes seguir con una prueba práctica o una simulación.`}toast("Añadida a tu ruta 🎯");
+}
+function renderToolStats(){
+  ensureExtras();
+}
+function openLibrary(){showView("biblioteca")}
+function renderLibrary(){
+  const box=document.getElementById("libraryGrid");if(!box)return;
+  box.innerHTML=resources.map((r,i)=>`<div class="card resource ${r[3]!=="Gratis"?"locked":""}"><div class="ico">${r[0]}</div><div style="flex:1"><h3>${escapeHTML(r[1])}</h3><p>${escapeHTML(r[2])}</p><span class="areaTag" style="display:inline-block;margin-top:10px">${r[3]}</span><br><button class="btn soft" style="margin-top:10px" onclick="openResource(${i})">Abrir →</button></div></div>`).join("");
+}
+function openResource(i){const r=resources[i];showModal(r[0]+" "+r[1],`${r[2]}<br><br><b>Mini actividad:</b> dedica 10–20 minutos a practicarlo y registra en tu diario qué descubriste.`)}
+function openPortfolio(){showView("portafolio")}
+function renderPortfolio(){
+  ensureExtras();const box=document.getElementById("portfolioList");if(!box)return;
+  box.innerHTML=state.portfolio.length?state.portfolio.slice().reverse().map((x,i)=>`<div class="card" style="margin-bottom:9px"><h3 style="margin:0">${escapeHTML(x.name)}</h3><p><b>Habilidad:</b> ${escapeHTML(x.skill)}</p><p>${escapeHTML(x.desc)}</p><small style="color:var(--muted)">${escapeHTML(x.date)}</small></div>`).join(""):'<div class="notice">Todavía no tienes proyectos guardados.</div>';
+}
+function savePortfolio(){
+  ensureExtras();const name=document.getElementById("portfolioName").value.trim(),skill=document.getElementById("portfolioSkill").value.trim(),desc=document.getElementById("portfolioDesc").value.trim();
+  if(!name||!skill||!desc){toast("Completa los tres campos.");return}
+  state.portfolio.push({name,skill,desc,date:new Date().toLocaleDateString("es-CO")});state.goals[3]=true;state.activities.push("Proyecto de portafolio: "+name);save();document.getElementById("portfolioName").value="";document.getElementById("portfolioSkill").value="";document.getElementById("portfolioDesc").value="";renderPortfolio();toast("Proyecto guardado 📁");
+}
+function openDiary(){showView("diario")}
+function renderDiary(){
+  ensureExtras();const box=document.getElementById("diaryEntries");if(!box)return;
+  box.innerHTML=state.diary.length?state.diary.slice().reverse().map(x=>`<div class="diaryEntry"><b>${escapeHTML(x.text)}</b><small>${escapeHTML(x.date)}</small></div>`).join(""):'<div class="notice">Tu diario está vacío. Escribe tu primera reflexión.</div>';
+}
+function saveDiary(){
+  ensureExtras();const text=document.getElementById("diaryText").value.trim();if(!text){toast("Escribe una reflexión primero.");return}
+  state.diary.push({text,date:new Date().toLocaleDateString("es-CO")});state.activities.push("Reflexión del diario");save();document.getElementById("diaryText").value="";renderDiary();toast("Reflexión guardada 📔");
+}
+function openHabits(){showView("habitos")}
+function renderHabits(){
+  ensureExtras();const days=["L","M","X","J","V","S","D"];document.getElementById("habitLabels").innerHTML=days.map(x=>`<span>${x}</span>`).join("");
+  document.getElementById("habitGrid").innerHTML=days.map((x,i)=>`<button class="habitDay ${state.habits.includes(i)?"done":""}" onclick="toggleHabit(${i})" title="Día ${i+1}"></button>`).join("");
+  document.getElementById("habitSummary").textContent=`${state.habits.length}/7 días marcados esta semana.`;
+}
+function toggleHabit(i){ensureExtras();const x=state.habits.indexOf(i);if(x>=0)state.habits.splice(x,1);else state.habits.push(i);save();renderHabits()}
+function markHabit(){const i=(new Date().getDay()+6)%7;if(!state.habits.includes(i))state.habits.push(i);save();renderHabits();toast("Hábito marcado 🔥")}
+function resetHabits(){state.habits=[];save();renderHabits();toast("Semana reiniciada")}
+function renderPlan(){
+  ensureExtras();
+  const goalBox=document.getElementById("goals"),resBox=document.getElementById("resources");
+  const done=state.goals.filter(Boolean).length,total=state.goals.length||5,pct=Math.round(done/total*100);
+  const bar=document.getElementById("planBar"),txt=document.getElementById("planText");
+  if(bar)bar.style.width=pct+"%";if(txt)txt.textContent=`${pct}% completado · ${done}/${total} metas`;
+  if(goalBox)goalBox.innerHTML=goalsDefault.map((g,i)=>`<label class="goal"><input type="checkbox" ${state.goals[i]?"checked":""} onchange="toggleGoal(${i},this.checked)"><span><b>${escapeHTML(g)}</b><small style="display:block;color:var(--muted);margin-top:3px">${["Construye tu perfil","Investiga posibilidades","Desarrolla una habilidad","Crea evidencia","Define tu siguiente paso"][i]}</small></span></label>`).join("");
+  if(resBox)resBox.innerHTML=resources.slice(0,6).map((r,i)=>`<div class="card resource ${r[3]!=="Gratis"?"locked":""}"><div class="ico">${r[0]}</div><div><h3>${escapeHTML(r[1])}</h3><p>${escapeHTML(r[2])}</p><button class="btn soft" style="margin-top:10px" onclick="openResource(${i})">Abrir →</button></div></div>`).join("");
+}
+function toggleGoal(i,v){state.goals[i]=!!v;save();renderPlan();toast(v?"Meta completada ✓":"Meta desmarcada")}
+
+function renderMentors(){
+  const box=document.getElementById("mentors");if(!box)return;
+  box.innerHTML=mentors.map((m,i)=>`<div class="mentor"><div class="face">${m[0]}</div><div style="flex:1"><b>${escapeHTML(m[1])}</b><small>${escapeHTML(m[2])}</small></div><button class="btn soft" onclick="renderMentorDetail(${i});showView('puente')">Ver →</button></div>`).join("");
+}
+
+function openAreaByIndex(i){const a=areas[i];if(!a)return;openAreaByName(a[1])}
+function openAreaByName(name){state.currentArea=name;save();showView("areaDetalle");renderAreaDetail(name)}
+function startSkill(x){state.currentSkill=x;state.activities=state.activities||[];state.activities.push("Práctica iniciada: "+x);save();showView("habilidadDetalle");renderSkill(0)}
+function startChallenge(x){state.currentChallenge=x;showView("reto");renderChallenge(x)}
+function openPillar(name){const map={"Orientación Vocacional":"vocacional","Mercado de Habilidades":"habilidades","Conexión y Mentoría":"mentoria"};showView(map[name]||"inicio")}
+
+/* =========================================================
+   Mobile V9 helpers
+   ========================================================= */
+(function(){
+  document.documentElement.classList.add('mobile-v9');
+
+  // Keep the app at the top when changing internal screens.
+  const oldShowView = window.showView;
+  if(typeof oldShowView === 'function'){
+    window.showView = function(id){
+      const result = oldShowView.apply(this, arguments);
+      try{ window.scrollTo({top:0,behavior:'instant'}); }catch(e){ window.scrollTo(0,0); }
+      return result;
+    };
+  }
+
+  // Haptic feedback where supported.
+  document.addEventListener('click', function(e){
+    const b = e.target.closest('button');
+    if(b && navigator.vibrate && !b.disabled){
+      try{ navigator.vibrate(8); }catch(_){}
+    }
+  }, {passive:true});
+
+  // Avoid accidental double-tap zoom on iOS while preserving normal scrolling.
+  let lastTouch = 0;
+  document.addEventListener('touchend', function(e){
+    const now = Date.now();
+    if(now-lastTouch < 280 && e.target.closest('button,a,.opt,.choice,.action-card')){
+      e.preventDefault();
+    }
+    lastTouch = now;
+  }, {passive:false});
+})();
+
+</script>
+</body>
+</html>
